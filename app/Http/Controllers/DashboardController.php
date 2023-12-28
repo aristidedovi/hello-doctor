@@ -13,14 +13,15 @@ class DashboardController extends Controller
     public function index()
     {
         // Get all appointments from the database
-        $allAppointments = Appointment::all();
+        $allAppointments = Appointment::where('status', '!=', 'cloturer')->get();
 
         // Get all patients from the database
         $allpatients = Patient::all();
         
         // Filter appointments for today
         $today = now()->format('Y-m-d');
-        $todayAppointments = $allAppointments->where('date', '>=', $today)->where('date', '<', Carbon::parse($today)->addDay());
+        $todayAppointments = $allAppointments->where('date', '>=', $today)
+        ->where('date', '<', Carbon::parse($today)->addDay())->where('status', '!=', 'cloturer');
 
         // Filter appointments for the current month
         // $month = now()->format('m');
@@ -37,6 +38,7 @@ class DashboardController extends Controller
         // Get appointments for the current month
         $currentMonthAppointments = Appointment::whereMonth('date', now()->month)
         ->whereYear('date', now()->year)
+        ->where('status', '!=', 'cloturer')
         ->get();
 
 
@@ -49,7 +51,9 @@ class DashboardController extends Controller
     public function calendar() {
        
         // Get all appointments from the database
-        $allAppointments = Appointment::all();
+        // $allAppointments = Appointment::all();
+
+        $allAppointments = Appointment::where('status', '!=', 'cloturer')->get();
 
         return view('calendar', compact('allAppointments'));
     }

@@ -12,8 +12,8 @@ class Appointment extends Model
     protected $fillable = [
         'patient_id', 
         'date',
-        'motif',
         'status',
+        'is_deleted',
     ];
 
     protected $dates = ['date'];
@@ -24,5 +24,11 @@ class Appointment extends Model
      {
          return $this->belongsTo(Patient::class);
      }
+
+     public function motifs()
+    {
+        return $this->hasMany(Motifs::class);
+    }
+
 
 }

@@ -25,6 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/appointment', [AppointmentController::class, 'index'])
     ->name('appointment.index');
 
+    // Route pour afficher la liste des rendez-vous
+    Route::get('/appointment/archive', [AppointmentController::class, 'archive'])
+    ->name('appointment.archive');
+
     // Route pour afficher le formulaire de création d'un rendez-vous
     Route::get('/appointment/create', [AppointmentController::class, 'create'])
     ->name('appointment.create');
@@ -40,6 +44,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/appointment/show', [AppointmentController::class, 'show'])
     ->name('appointment.show');
 
+    // Route pour afficher le detail d'un appointement
+    Route::get('/appointment/{id}', [PatientController::class, 'detail'])
+    ->name('appointment.detail');
+
+    // Route pour supprimer un rendez-vous
+    Route::delete('/appointment/{id}', [AppointmentController::class, 'destroy'])
+    ->name('appointment.destroy');
+
+
     // Route pour afficher le formulaire de modification d'un rendez-vous
     Route::get('/appointment/{appointment}/edit', [AppointmentController::class, 'edit'])
     ->name('appointment.edit');
@@ -52,6 +65,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/appointment/{appointment}', [AppointmentController::class, 'destroy'])
     ->name('appointment.destroy');
 
+    Route::get('/appointment/{id}/get-data', [AppointmentController::class, 'getAppointmentData']);
+
+    Route::get('/appointment/{id}/get-data/cloturer', [AppointmentController::class, 'getAppointmentDataCloturer']);
+
+
+    Route::post('/appointment/{id}/reprogram', [AppointmentController::class, 'appointmentReprogram'])
+    ->name('appointment.reprogram');
+
+    Route::post('/appointment/{id}/cloturer', [AppointmentController::class, 'appointmentCloturer'])
+    ->name('appointment.cloturer');
 
     Route::get('/patient', [PatientController::class, 'index'])
     ->name('patient.index');

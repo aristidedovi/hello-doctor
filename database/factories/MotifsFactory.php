@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class AppointmentFactory extends Factory
+class MotifsFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,10 +18,9 @@ class AppointmentFactory extends Factory
         $endDate = $startDate->copy()->addMonths(3);
 
         return [
-            'patient_id' => $this->faker->numberBetween(1, \App\Models\Patient::count()),
+            'appointment_id' => $this->faker->numberBetween(1, \App\Models\Appointment::count()),
             'date' => $this->faker->dateTimeBetween($startDate, $endDate),
-            'status' => $this->faker->randomElement(['en cours', 'reprogrammer', 'cloturer']),
-            'is_deleted' => $this->faker->randomElement([false,true]),
+            'motif' => $this->faker->word()
             //
         ];
     }

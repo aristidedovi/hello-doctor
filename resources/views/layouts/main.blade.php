@@ -36,6 +36,20 @@
     <link href="{{ asset('plugins/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <style>
+        /* Your custom styles here */
+        .toast-success {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .toast-error {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+    @stack('styles')
 
 </head>
 
@@ -173,21 +187,21 @@
                     </li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="icon-user menu-icon"></i> <span class="nav-text">Patients</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="{{ route('patient.create') }}">Nouveau patient</a></li>
-                            <li><a href="{{ route('patient.index') }}">Liste patient</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-notebook menu-icon"></i> <span class="nav-text">Rendez vous</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('appointment.create') }}">Nouveau RDV</a></li>
                             <li><a href="{{ route('appointment.index') }}">Liste RDV</a></li>
+                            <li><a href="{{ route('appointment.archive') }}">Archive RDV</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-user menu-icon"></i> <span class="nav-text">Patients</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('patient.create') }}">Nouveau patient</a></li>
+                            <li><a href="{{ route('patient.index') }}">Liste patient</a></li>
                         </ul>
                     </li>
                     {{-- <li class="mega-menu mega-menu-sm {{ (request()->is('appointment/*')) ? 'active' : '' }}">
@@ -352,6 +366,25 @@
     <script src="{{ asset('plugins/tables/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.js"></script>
+
+    @if (session('toast'))
+        <script>
+            var toastData = @json(session('toast'));
+
+            // Display a toast message
+            Toastify({
+                text: toastData.message,
+                duration: 3000,  // Adjust as needed
+                close: true,
+                gravity: "top", // Or "top", "bottom", "left", "right"
+                position: 'right',  // Or 'center'
+                className: `toast-${toastData.type}`,
+            }).showToast();
+        </script>
+        
+    @endif
     
     @stack('scripts')
 
