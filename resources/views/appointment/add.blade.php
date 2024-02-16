@@ -57,8 +57,8 @@
                                                         <input type="text" name="date" class="form-control" placeholder="Saturday 24 June 2017 - 21:44" id="date-format" require>
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label>Status (select one)*:</label>
-                                                        <select class="form-control" id="sel1" require>
+                                                        <!-- <label>Status (select one)*:</label> -->
+                                                        <select name="motif" class="form-control" id="sel1" hidden require>
                                                             <option value="en cours">En cours</option>
                                                             <option value="reprogrammer">reprogrammer</option>
                                                             <option value="cloturer">Cloturer</option>

@@ -73,9 +73,19 @@
                                                                 <label>Genre</label>
                                                                 <select id="inputState" name="genre" class="form-control">
                                                                     <option selected="selected">Choisir...</option>
-                                                                    <option>Homme</option>
-                                                                    <option>Femme</option>
+                                                                    <option value="Homme">Homme</option>
+                                                                    <option value="Femme">Femme</option>
                                                                 </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <div class="form-check form-check-inline">
+                                                                    <label class="form-check-label">
+                                                                        <input type="checkbox" name="schedule_appointment" class="form-check-input" value="yes">
+                                                                        Prendre rendez-vous dans les 10 prochains jours
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <button type="submit" class="btn btn-dark">Enregistrer</button>

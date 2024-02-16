@@ -36,7 +36,7 @@
                                                 <th scope="col">adresse</th>
                                                 <th scope="col">Téléphone</th>
                                                 <th scope="col">Date d'ajout</th>
-                                                <th scope="col">Show</th>
+                                                <th scope="col">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -61,7 +61,12 @@
                                                 <td>
                                                     <span>
                                                         <a href="{{ route('patient.detail', $patient) }}" data-toggle="tooltip" data-placement="top" title="Detail">
-                                                            <i class="fa fa-eye color-muted m-r-5"></i> 
+                                                            <i class="fa fa-eye color-muted m-r-5 mr-2"></i> 
+                                                        </a>
+                                                    </span>
+                                                    <span class="sweetalert m-t-30">
+                                                        <a class="sweet-success-cancel" data-url="{{ route('patient.delete', $patient) }}" data-toggle="tooltip" data-placement="top" title="Supprimer">
+                                                            <i class="fa fa-trash-o color-muted m-r-5" style="color: red;"></i> 
                                                         </a>
                                                     </span>
                                                 </td>
@@ -289,6 +294,10 @@
                 </div>
             </div>
         </div>
+@push('scripts')
+    <script src="{{ asset('plugins/sweetalert/js/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('plugins/sweetalert/js/sweetalert.init.js') }}"></script>
+@endpush
 @endsection
 
 

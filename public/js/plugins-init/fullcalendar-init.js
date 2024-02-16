@@ -10,17 +10,22 @@
         i.start = n, o && (i.className = [o]), this.$calendar.fullCalendar("renderEvent", i, !0), e("#drop-remove").is(":checked") && t.remove()
     }, 
     t.prototype.onEventClick = function(t, n, a) {
-        var o = this,
-            i = e("<form></form>");
-        i.append("<label>Change event name</label>"), i.append("<div class='input-group'><input class='form-control' type=text value='" + t.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>"), o.$modal.modal({
-            backdrop: "static"
-        }), o.$modal.find(".delete-event").show().end().find(".save-event").hide().end().find(".modal-body").empty().prepend(i).end().find(".delete-event").unbind("click").on("click", function() {
-            o.$calendarObj.fullCalendar("removeEvents", function(e) {
-                return e._id == t._id
-            }), o.$modal.modal("hide")
-        }), o.$modal.find("form").on("submit", function() {
-            return t.title = i.find("input[type=text]").val(), o.$calendarObj.fullCalendar("updateEvent", t), o.$modal.modal("hide"), !1
-        })
+        var currentPatienId = t.patientId;
+        var hostUrl = window.location.origin;
+        // console.log(hostUrl+'/patient/'+t.patientId);
+        // Replace 'desired-url' with the URL you want to redirect to
+        window.location.href = hostUrl+'/patient/'+currentPatienId;
+        // var o = this,
+        //     i = e("<form></form>");
+        // i.append("<label>Change event name</label>"), i.append("<div class='input-group'><input class='form-control' type=text value='" + t.title + "' /><span class='input-group-btn'><button type='submit' class='btn btn-success waves-effect waves-light'><i class='fa fa-check'></i> Save</button></span></div>"), o.$modal.modal({
+        //     backdrop: "static"
+        // }), o.$modal.find(".delete-event").show().end().find(".save-event").hide().end().find(".modal-body").empty().prepend(i).end().find(".delete-event").unbind("click").on("click", function() {
+        //     o.$calendarObj.fullCalendar("removeEvents", function(e) {
+        //         return e._id == t._id
+        //     }), o.$modal.modal("hide")
+        // }), o.$modal.find("form").on("submit", function() {
+        //     return t.title = i.find("input[type=text]").val(), o.$calendarObj.fullCalendar("updateEvent", t), o.$modal.modal("hide"), !1
+        // })
     }, t.prototype.onSelect = function(t, n, a) {
         var o = this;
         o.$modal.modal({

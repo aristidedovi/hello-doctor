@@ -67,7 +67,7 @@
         
         <script>
             var appointments = {!! $jsonAppointments !!};
-            console.log(appointments);
+            //console.log(appointments);
            
 
             var t = new Date,
@@ -79,6 +79,7 @@
                 var objCalendrier = new Object();
 
                 objCalendrier.title = appointments[i].patient.first_name;
+                objCalendrier.patientId = appointments[i].patient.id;
                 objCalendrier.start = appointments[i].date;
                 objCalendrier.end = appointments[i].date;
                 objCalendrier.className = "bg-primary";

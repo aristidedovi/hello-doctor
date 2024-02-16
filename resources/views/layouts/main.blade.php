@@ -36,6 +36,7 @@
     <link href="{{ asset('plugins/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css')}}" rel="stylesheet">
+    <link href="{{ asset('plugins/sweetalert/css/sweetalert.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <style>
         /* Your custom styles here */
@@ -366,6 +367,8 @@
     <script src="{{ asset('plugins/tables/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
+
+    
 
     <script src="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.js"></script>
 

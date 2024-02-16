@@ -13,7 +13,9 @@ class DashboardController extends Controller
     public function index()
     {
         // Get all appointments from the database
-        $allAppointments = Appointment::where('status', '!=', 'cloturer')->get();
+        $allAppointments = Appointment::where('status', '!=', 'cloturer')
+        ->where('is_deleted', false)
+        ->get();
 
         // Get all patients from the database
         $allpatients = Patient::all();
@@ -21,7 +23,8 @@ class DashboardController extends Controller
         // Filter appointments for today
         $today = now()->format('Y-m-d');
         $todayAppointments = $allAppointments->where('date', '>=', $today)
-        ->where('date', '<', Carbon::parse($today)->addDay())->where('status', '!=', 'cloturer');
+        ->where('date', '<', Carbon::parse($today)->addDay())
+        ->where('status', '!=', 'cloturer')->where('is_deleted', false);
 
         // Filter appointments for the current month
         // $month = now()->format('m');
@@ -39,6 +42,7 @@ class DashboardController extends Controller
         $currentMonthAppointments = Appointment::whereMonth('date', now()->month)
         ->whereYear('date', now()->year)
         ->where('status', '!=', 'cloturer')
+        ->where('is_deleted', false)
         ->get();
 
 
@@ -53,7 +57,9 @@ class DashboardController extends Controller
         // Get all appointments from the database
         // $allAppointments = Appointment::all();
 
-        $allAppointments = Appointment::where('status', '!=', 'cloturer')->get();
+        $allAppointments = Appointment::where('status', '!=', 'cloturer')
+        ->where('is_deleted', false)
+        ->get();
 
         return view('calendar', compact('allAppointments'));
     }

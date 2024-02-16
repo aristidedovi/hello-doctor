@@ -49,8 +49,8 @@ Route::middleware('auth')->group(function () {
     ->name('appointment.detail');
 
     // Route pour supprimer un rendez-vous
-    Route::delete('/appointment/{id}', [AppointmentController::class, 'destroy'])
-    ->name('appointment.destroy');
+    // Route::delete('/appointment/{id}', [AppointmentController::class, 'destroy'])
+    // ->name('appointment.destroy');
 
 
     // Route pour afficher le formulaire de modification d'un rendez-vous
@@ -62,8 +62,12 @@ Route::middleware('auth')->group(function () {
     ->name('appointment.update');
 
     // Route pour supprimer un rendez-vous
-    Route::delete('/appointment/{appointment}', [AppointmentController::class, 'destroy'])
-    ->name('appointment.destroy');
+    // Route::delete('/appointment/{appointment}', [AppointmentController::class, 'destroy'])
+    // ->name('appointment.destroy');
+
+    // Route pour supprimer un rendez-vous
+    Route::get('/appointment/delete/{appointment}', [AppointmentController::class, 'delete'])
+    ->name('appointment.delete');
 
     Route::get('/appointment/{id}/get-data', [AppointmentController::class, 'getAppointmentData']);
 
@@ -90,6 +94,10 @@ Route::middleware('auth')->group(function () {
     // Route pour afficher le detail d'un patient
     Route::get('/patient/{patient}', [PatientController::class, 'detail'])
     ->name('patient.detail');
+
+    // Route pour supprimer un patient
+    Route::get('/patient/delete/{patient}', [PatientController::class, 'delete'])
+    ->name('patient.delete');
 
     
     // Patient store

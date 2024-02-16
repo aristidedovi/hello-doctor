@@ -19,6 +19,7 @@ class AppointmentController extends Controller
         // Carbon::setLocale('fr');
         setlocale(LC_ALL,'fr.UTF-8');
         $appointments = Appointment::where('status', '!=', 'cloturer')
+        ->where('is_deleted', false)
         ->orderBy('date', 'asc')
         ->get();
 
@@ -35,6 +36,7 @@ class AppointmentController extends Controller
         // Carbon::setLocale('fr');
         setlocale(LC_ALL,'fr.UTF-8');
         $appointments = Appointment::where('status', '=', 'cloturer')
+        ->orWhere('is_deleted', true)
         ->orderBy('date', 'asc')
         ->get();
 
@@ -71,6 +73,18 @@ class AppointmentController extends Controller
             //abort(404); // Patient not found
         }
 
+        $existingAppointment = $patient->appointments()
+        ->where('is_deleted', false) // Filter appointments where is_delete is false
+        ->where('status', '!=', 'cloturer') // Filter appointments where status is not 'cloture'
+        ->first();
+
+        if ($existingAppointment) {
+
+            return redirect()->route('patient.detail', ['patient' => $patient])->with('toast', [
+                'type'=> 'success',
+                'message'=> 'Le patient a un RDV non cloturer !']);
+        }
+
         // Parse the input string using Carbon
         $carbonDate = Carbon::createFromFormat('l j F Y - H:i', $request->date);
 
@@ -87,7 +101,7 @@ class AppointmentController extends Controller
             'patient_id'=>'required',
             'date' => 'required|date',
             'motif'=>'required',
-            'status' => 'nullable|in:pending,confirmed,canceled'
+            'status' => 'nullable|in:en cours,reprogrammer,cloturer'
         ]);
 
         // Insert new appointment on database
@@ -134,14 +148,28 @@ class AppointmentController extends Controller
     } 
 
 
-    public function destroy($appointment_id){
-        $appointment = Appointment::findOrFail($appointment_id);
+    public function delete(Appointment $appointment){
+        //dd($appointment);
+        $searchAppointment = Appointment::findOrFail($appointment->id);
         // dd($appointment);
-        // $appointment->delete();
+        // Delete associated motifs
 
-        return redirect()->route('appointment.index')->with('toast', [
-            'type'=> 'error',
-            'message'=> 'Appointment deleted successfully']);
+        if ($searchAppointment) {
+            $appointment->motifs()->delete();
+
+            // Delete the appointment
+            $appointment->delete();
+
+            return redirect()->route('appointment.index')->with('toast', [
+                'type'=> 'success',
+                'message'=> 'Appointment deleted successfully']);
+        } else {
+
+            return redirect()->route('appointment.index')->with('toast', [
+                'type'=> 'error',
+                'message'=> 'Appointment not existed']);
+        }
+        
     }
 
     public function detail(Appointment $patient)
@@ -174,9 +202,10 @@ class AppointmentController extends Controller
 
         // Retrieve the appointment by ID
         $appointment = Appointment::find($id);
+        $patient = $appointment->patient;
 
         if (!$appointment) {
-            return redirect()->route('appointments.index')->with('toast', [
+            return redirect()->route('patient.detail', ['patient' => $patient])->with('toast', [
                 'type'=> 'error',
                 'message'=> 'Appointment not found!']);
         }
@@ -196,7 +225,7 @@ class AppointmentController extends Controller
         $appointment->motifs()->create($motifData);
 
 
-        return redirect()->route('appointment.index')->with('toast', [
+        return redirect()->route('patient.detail', ['patient' => $patient])->with('toast', [
             'type'=> 'success',
             'message'=> 'Rendez-vous cloturer avec succès!']);
     }
@@ -216,14 +245,17 @@ class AppointmentController extends Controller
         // Retrieve the appointment by ID
         $appointment = Appointment::find($id);
         // $nbrDeJour = 15;
+        $patient = $appointment->patient;
 
         //dd($request);
 
         if (!$appointment) {
-            return redirect()->route('appointments.index')->with('toast', [
+            return redirect()->route('patient.detail', ['patient' => $patient])->with('toast', [
                 'type'=> 'error',
                 'message'=> 'Appointment not found!']);
         }
+
+        
 
         // Reprogram the appointment (similar to the previous example)
         $newDate = $this->reprogramAppointment($appointment, $request->appointmentReprogram);
@@ -246,7 +278,7 @@ class AppointmentController extends Controller
 
         // Redirect to the appointments index page with a success message
         // return view('appointment.modal-content', compact('appointment'));
-        return redirect()->route('appointment.index')->with('toast', [
+        return redirect()->route('patient.detail', ['patient' => $patient])->with('toast', [
             'type'=> 'success',
             'message'=> 'Rendez-vous reprogrammer avec succès!']);
 
