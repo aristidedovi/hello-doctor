@@ -81,9 +81,9 @@ class PatientController extends Controller
 
         $appointment = $patient->appointments()
         ->where('is_deleted', false) // Filter appointments where is_delete is false
-        ->where('status', '!=', 'cloturer') // Filter appointments where status is not 'cloture'
+        //->where('status', '!=', 'cloturer') // Filter appointments where status is not 'cloture'
         ->with(['motifs' => function ($query) {
-            $query->orderBy('date', 'desc'); // Order by motif date
+            $query->orderBy('date', 'asc'); // Order by motif date
         }])
         ->first();
 
@@ -91,7 +91,7 @@ class PatientController extends Controller
 
         //$motifs = $appointment->motifs();
 
-        // dd($motifs);
+        //dd($appointment);
         return view('patient.detail', compact('patient', 'appointment'));
     }
 

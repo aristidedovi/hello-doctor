@@ -58,50 +58,40 @@
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-6">
-                                        <h4 class="card-title">Historique des rendez-vous</h4>
+                                        <h4 class="card-title">
+                                            Historique des rendez-vous 
+                                            @if($appointment !== null)
+                                                <span class="badge badge-secondary">{{$appointment->status}}</span>
+                                            @endif
+                                        </h4>
                                     </div>
-                                    <div class="col-6 d-flex justify-content-end">
-                                        <!-- <button id="myModal" class="btn mb-1 btn-primary pull-right dropdown-item open-modal-reprogrammer" 
-                                            data-appointment-id="{{ $appointment->id }}"
-                                            data-placement="top" title="Reprogrammer"
-                                            data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">
-                                            <span class="btn-icon-right"><i class="fa fa-pencil"></i></span>
-                                        </button> -->
-                                        
+                                    <div class="col-6 d-flex justify-content-end">                                        
                                         <button type="button" id="myModal" 
                                             class="btn mb-1 btn-primary pull-right open-modal-reprogrammer mr-2 btn-xs"
                                             data-placement="top" title="Reprogrammer"
-                                            data-appointment-id="{{ $appointment->id }}"
+                                            @if($appointment !== null)
+                                                data-appointment-id="{{ $appointment->id }}"
+                                            @endif
                                             data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap"
-                                            @if($appointment->status == 'cloturer') disabled @endif>
+                                            @if($appointment !== null && $appointment->status == 'cloturer') disabled @endif>
                                             <i class="fa fa-pencil"></i>   
                                         </button>
 
                                         <button type="button" id="myModal" 
                                             class="btn mb-1 btn-danger pull-right open-modal-cloturer btn-xs" 
-                                            data-appointment-id="{{ $appointment->id }}"
+                                            @if($appointment !== null)
+                                                data-appointment-id="{{ $appointment->id }}"
+                                            @endif
                                             data-placement="top" title="Cloturer"
                                             data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap"
-                                            @if($appointment->status == 'cloturer') disabled @endif>
+                                            @if($appointment !== null && $appointment->status == 'cloturer') disabled @endif>
                                             <i class="fa fa-times"></i>
                                         </button>
                                     </div>
                                 </div>
                                 
-                                <!-- <p>
-                                    Dernier rendez-vous crée le {{ $appointment->date->locale('fr')->formatLocalized('%A %e %B %Y') }} 
-                                    <span class="badge 
-                                        @if($appointment->status === 'confirmed')
-                                            badge-success px-2
-                                        @elseif($appointment->status === 'pending')
-                                            badge-primary px-2
-                                        @else
-                                            badge-danger px-2
-                                        @endif">
-                                        {{ $appointment->status }}
-                                    </span>
-                                </p> -->
                                 <div class="email-list m-t-15">
+                                @if($appointment !== null)
                                     @foreach ($appointment->motifs as $motif)
                                     <div class="message">
                                             <a href="#">
@@ -169,6 +159,7 @@
                                                 </div>
                                             </div>
                                     @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>

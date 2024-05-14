@@ -22,9 +22,14 @@ class DashboardController extends Controller
         
         // Filter appointments for today
         $today = now()->format('Y-m-d');
-        $todayAppointments = $allAppointments->where('date', '>=', $today)
+        
+        $todayAppointments = Appointment::where('date', '>=', $today)
         ->where('date', '<', Carbon::parse($today)->addDay())
         ->where('status', '!=', 'cloturer')->where('is_deleted', false);
+
+        $todayAppointmentsPaginate = Appointment::where('date', '>=', $today)
+        ->where('date', '<', Carbon::parse($today)->addDay())
+        ->where('status', '!=', 'cloturer')->where('is_deleted', false)->paginate(3);
 
         // Filter appointments for the current month
         // $month = now()->format('m');
@@ -48,7 +53,7 @@ class DashboardController extends Controller
 
         
         //$patients = Patient::all();
-        return view('home', compact('allpatients','allAppointments','todayAppointments', 'currentMonthAppointments'));
+        return view('home', compact('allpatients','allAppointments','todayAppointments', 'currentMonthAppointments', 'todayAppointmentsPaginate'));
     }
 
 

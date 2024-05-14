@@ -76,8 +76,8 @@
                             <div class="card-body">
                                 <h4 class="card-title">Les rendez-vous du jour</h4>
                                 <div id="activity">
-                                    @if($todayAppointments->count() > 0)
-                                        @foreach ($todayAppointments as $appointment)
+                                    @if($todayAppointmentsPaginate->count() > 0)
+                                        @foreach ($todayAppointmentsPaginate as $appointment)
                                             <div class="media border-bottom-1 pt-3 pb-3">
                                                 <img width="35" src="./images/avatar/1.jpg" class="mr-3 rounded-circle">
                                                 <div class="media-body">
@@ -106,7 +106,12 @@
                                                 }
                                             @endphp
                                         @endforeach
-                                        <p>Il reste {{ $todayAppointments->count() - 3 }}</p>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <!-- Afficher la pagination -->
+                                                {{ $todayAppointmentsPaginate->links('partials.pagination') }}
+                                            </div>
+                                        </div>
                                         @else
                                             {{-- Display content if there are no appointments for the current month --}}
                                             <p>No appointments found for the current day.</p>

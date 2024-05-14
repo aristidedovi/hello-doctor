@@ -34,6 +34,7 @@
                                                     <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck" /><label class="form-check-label" for="contacusercheck"></label></div>
                                                 </th> -->
                                                 <!-- <th scope="col">ID</th> -->
+                                                <th scope="col">Code Patient</th>
                                                 <th scope="col">Nom Complet</th>
                                                 <!-- <th scope="col">adresse</th> -->
                                                 <!-- <th scope="col">Téléphone</th> -->
@@ -45,6 +46,13 @@
                                         <tbody>
                                             @foreach ($appointments as $appointment)                                      
                                             <tr>
+                                                <td>
+                                                    <a href="{{ route('patient.detail', $appointment->patient) }}" 
+                                                            data-toggle="tooltip" data-placement="top" title="" data-original-title="Détail"
+                                                        >
+                                                        {{ $appointment->patient->code }}
+                                                    </a>
+                                                </td>
                                                 <td>
                                                     <a href="{{ route('patient.detail', $appointment->patient) }}" 
                                                         data-toggle="tooltip" data-placement="top" title="" data-original-title="Détail"
@@ -101,11 +109,11 @@
                                                             </a>
                                                         </div>
                                                         <div class="col pr-0">
-                                                        <a id="myModal" class="btn dropdown-item open-modal-cloturer p-0" style="color: green; width: auto;" 
+                                                        <a id="myModal" class="btn dropdown-item open-modal-cloturer p-0" style="color: black; width: auto;" 
                                                             data-appointment-id="{{ $appointment->id }}"
                                                             data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap"
                                                             @if($appointment->status == 'cloturer') disabled @endif>
-                                                            <i class="fa fa-stop-circle"></i> </a>
+                                                            <i class="fa fa-times"></i> </a>
                                                         </div>
                                                         <div class="col pr-0">
                                                             <!-- <form action="{{ route('appointment.delete', $appointment->id) }}" method="POST">
