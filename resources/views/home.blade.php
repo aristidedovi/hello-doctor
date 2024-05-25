@@ -75,51 +75,32 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Les rendez-vous du jour</h4>
-                                <div id="activity">
-                                    @if($todayAppointments->count() > 0)
-                                        @foreach ($todayAppointments as $appointment)
-                                            <div class="media border-bottom-1 pt-3 pb-3">
-                                                <img width="35" src="./images/avatar/1.jpg" class="mr-3 rounded-circle">
-                                                <div class="media-body">
-                                                    <h5>{{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</h5>
-                                                    <p class="mb-0">{{ $appointment->date->locale('fr')->formatLocalized('%A %e %B %Y') }}</p>
-                                                    <p class="mb-0">Motif : {{ $appointment->motif }}</p>
-                                                    <a href="{{ route('patient.detail', $appointment->patient) }}" data-toggle="tooltip" data-placement="top" title="Detail">
-                                                        <i class="fa fa-eye color-muted m-r-5"></i> Détail
-                                                    </a>
-                                                </div>
-                                                <!-- <span class="text-muted ">{{ $appointment->date->locale('fr')->formatLocalized('%A %e %B %Y') }}</span> -->
-                                                <span class="badge
-                                                        @if($appointment->status === 'confirmed')
-                                                            badge-success px-2
-                                                        @elseif($appointment->status === 'pending')
-                                                            badge-primary px-2
-                                                        @else
-                                                            badge-danger px-2
-                                                        @endif">
-                                                        {{ $appointment->status }}
-                                                </span>
-                                            </div>
-                                            @php
-                                                if($loop->iteration >= 3) {
-                                                    break;
-                                                }
-                                            @endphp
-                                        @endforeach
-                                        <p>Il reste {{ $todayAppointments->count() - 3 }}</p>
-                                        @else
-                                            {{-- Display content if there are no appointments for the current month --}}
-                                            <p>No appointments found for the current day.</p>
-                                        @endif
+                                <form id="search-form-appointment">
+                                        <div class="form-group">
+                                            <input type="text" id="search-query-appointment" class="form-control" placeholder="Recherche de patient">
+                                        </div>
+                                        <!-- <button type="submit" class="btn btn-primary">Search</button> -->
+                                    </form>
+                                <div id="appointment-content">
+                                    @include('appointment.partials.appointment')
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-6 col-md-6">
                             <div class="card card-widget">
                                 <div class="card-body">
-                                    <h5 class="text-muted">Order Overview </h5>
-                                    <h2 class="mt-4">5680</h2>
+                                    <h5 class="card-title">Liste de patient </h5>
+                                    <form id="search-form">
+                                        <div class="form-group">
+                                            <input type="text" id="search-query" class="form-control" placeholder="Recherche de patient">
+                                        </div>
+                                        <!-- <button type="submit" class="btn btn-primary">Search</button> -->
+                                    </form>
+                                    <div id="patient-content">
+                                        @include('patient.partials.patients')
+                                    </div>
+                                    <!-- <h2 class="mt-4">5680</h2>
                                     <span>Total Revenue</span>
                                     <div class="mt-4">
                                         <h4>30</h4>
@@ -136,20 +117,20 @@
                                             <div class="progress-bar bg-success" style="width: 50%;" role="progressbar"><span class="sr-only">50% Order</span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="mt-4">
+                                    </div> -->
+                                    <!-- <div class="mt-4">
                                         <h4>20</h4>
                                         <h6 class="m-t-10 text-muted">Cash On Develery <span class="pull-right">20%</span></h6>
                                         <div class="progress mb-3" style="height: 7px">
                                             <div class="progress-bar bg-warning" style="width: 20%;" role="progressbar"><span class="sr-only">20% Order</span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             
                         </div>
-                        <div class="col-lg-3 col-md-6">
+                        <!-- <div class="col-lg-3 col-md-6">
                             <div class="card">
                                 <div class="card-body px-0">
                                     <h4 class="card-title px-4 mb-3">Todo</h4>
@@ -170,7 +151,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                 </div>
             </div>
             <!-- #/ container -->
@@ -192,4 +173,63 @@
             Footer end
         ***********************************-->
 
+@push('scripts')
+<script>
+                                    $(document).ready(function () {
+                                        $(document).on('click', '.pagination a', function (event) {
+                                            event.preventDefault();
+                                            var url = $(this).attr('href');
+                                            fetch_data(url);
+                                        });
+
+                                        $('#search-form').on('input', function (event) {
+                                            event.preventDefault();
+                                            var query = $('#search-query').val();
+                                            if (query.length > 0) {
+                                                fetch_data("{{ route('dashboard') }}?search_query=" + query);
+                                            } else {
+                                                // Si le champ de recherche est vide, charger les données par défaut
+                                                fetch_data("{{ route('dashboard') }}?search_query=");
+                                            }
+                                            //fetch_data("{{ route('dashboard') }}?search_query=" + query);
+                                        });
+
+                                        $('#search-form-appointment').on('input', function (event) {
+                                            event.preventDefault();
+                                            var query = $('#search-query-appointment').val();
+                                            //console.log(query.length);
+                                            if (query.length > 0) {
+                                                fetch_data("{{ route('dashboard') }}?search_query_appointment=" + query);
+                                            } else {
+                                                // Si le champ de recherche est vide, charger les données par défaut
+                                                fetch_data("{{ route('dashboard') }}?search_query_appointment=");
+                                            }
+                                            //fetch_data("{{ route('dashboard') }}?search_query_appointment=" + query);
+                                        });
+
+                                        function fetch_data(url) {
+                                            $.ajax({
+                                                //url: "/?patient_page=" + page,
+                                                url: url,
+                                                success: function (data) {
+                                                    //console.log(data);
+                                                    if (url.includes('appointment_page') || url.includes('search_query_appointment')) {
+                                                        $('#appointment-content').html(data);
+                                                    } else if (url.includes('patient_page') || url.includes('search_query')) {
+                                                        $('#patient-content').html(data);
+                                                    }
+                                                    //console.log(data);
+                                                    //$('#patient-content').html(data);
+                                                },
+                                                error: function (xhr, status, error) {
+                                                    console.log(xhr.responseText);
+                                                }
+                                            });
+                                        }
+                                    });
+                                </script>
+@endpush
+
+
 @endsection
+
