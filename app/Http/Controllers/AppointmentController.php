@@ -118,7 +118,7 @@ class AppointmentController extends Controller
         $appointment->motifs()->create($motifData);
 
         // Redirect to appointment list page
-        return redirect()->route('appointment.index')
+        return redirect()->route('patient.detail', ['patient' => $patient])
         ->with('toast', [
             'type'=> 'success',
             'message'=> 'Rendez-vous créé avec succès!']);
