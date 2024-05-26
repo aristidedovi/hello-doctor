@@ -8,7 +8,9 @@
                                                     <a href="{{ route('patient.detail', $appointment->patient) }}">
                                                         <h5>{{ $appointment->patient->code }}</h5>
                                                     </a>
-                                                    <p class="mb-0">{{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</p>
+                                                    <a href="{{ route('patient.detail', $appointment->patient) }}">
+                                                        <p class="mb-0">{{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</p>
+                                                    </a>
                                                     <p class="mb-0"> <i class="fa fa-calendar"></i> {{ $appointment->date->locale('fr')->formatLocalized('%A %e %B %Y') }}</p>
                                                     <p class="mb-0"><i class="fa fa-commenting-o"></i>
                                                         @if (!empty($appointment->motifs))

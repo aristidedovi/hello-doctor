@@ -18,6 +18,8 @@ class DashboardController extends Controller
         ->where('is_deleted', false)
         ->get();
 
+        
+
         // Get all patients from the database
         $allpatients = Patient::all();
         $patientPaginate = Patient::paginate(5,  ['*'], 'patient_page');
@@ -99,6 +101,31 @@ class DashboardController extends Controller
                 // })
 
                 return view('appointment.partials.appointment', compact('filteredAppointment'))->render();
+            }
+
+            if ($request->has('filter')) {
+
+                $filter = $request->input('filter');
+
+                if ($filter === "all") {
+                    $filteredAppointment = Appointment::where('status', '!=', 'cloturer')
+                    ->where('is_deleted', false)->paginate(3,   ['*'], 'appointment_page');
+
+                    return view('appointment.partials.appointment', compact('filteredAppointment'))->render();
+                }
+
+
+                if($filter === "today") {
+                    $filteredAppointment = Appointment::where('date', '>=', $today)
+                    ->where('date', '<', Carbon::parse($today)->addDay())
+                    ->where('status', '!=', 'cloturer')->where('is_deleted', false)->paginate(3,   ['*'], 'appointment_page');
+
+                    return view('appointment.partials.appointment', compact('filteredAppointment'))->render();
+                }
+                
+               
+                return $filter;
+                //return view('appointment.partials.appointment', compact('allAppointments'))->render();
             }
 
         }

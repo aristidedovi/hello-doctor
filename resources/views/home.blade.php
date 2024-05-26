@@ -76,9 +76,17 @@
                             <div class="card-body">
                                 <h4 class="card-title">Les rendez-vous du jour</h4>
                                 <form id="search-form-appointment">
-                                        <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
                                             <input type="text" id="search-query-appointment" class="form-control" placeholder="Recherche de patient">
                                         </div>
+                                        <div class="form-group col-md-4">
+                                            <select id="filter-appointments" class="form-control">
+                                                <option value="all">All Appointments</option>
+                                                <option value="today" selected>Today's Appointments</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                         <!-- <button type="submit" class="btn btn-primary">Search</button> -->
                                     </form>
                                 <div id="appointment-content">
@@ -179,6 +187,7 @@
                                         $(document).on('click', '.pagination a', function (event) {
                                             event.preventDefault();
                                             var url = $(this).attr('href');
+                                            console.log(url);
                                             fetch_data(url);
                                         });
 
@@ -193,6 +202,16 @@
                                             }
                                             //fetch_data("{{ route('dashboard') }}?search_query=" + query);
                                         });
+
+                                        // Filtrer les rendez-vous
+                                        $('#filter-appointments').on('change', function () {
+                                            var filter = $(this).val();
+                                            //console.log(filter);
+                                            //var query = $('#search-query').val();
+                                            // fetch_data("{{ route('dashboard') }}?filter=" + filter + "&search_query=" + query);
+                                            fetch_data("{{ route('dashboard') }}?filter=" + filter);
+                                        });
+
 
                                         $('#search-form-appointment').on('input', function (event) {
                                             event.preventDefault();
@@ -213,7 +232,8 @@
                                                 url: url,
                                                 success: function (data) {
                                                     //console.log(data);
-                                                    if (url.includes('appointment_page') || url.includes('search_query_appointment')) {
+                                                    if (url.includes('appointment_page') || url.includes('search_query_appointment') || url.includes('filter')) {
+                                                        //console.log(data);
                                                         $('#appointment-content').html(data);
                                                     } else if (url.includes('patient_page') || url.includes('search_query')) {
                                                         $('#patient-content').html(data);
