@@ -6,13 +6,31 @@
                                                 <img width="35" src="./images/avatar/patient.png" class="mr-3 rounded-circle">
                                                 <div class="media-body">
                                                     <a href="{{ route('patient.detail', $appointment->patient) }}">
-                                                        <h5>{{ $appointment->patient->code }}</h5>
+                                                        <p class="mb-0">
+                                                            <span class="h5">{{ $appointment->patient->code }}</span>
+                                                            <span class="badge
+                                                            @if($appointment->status === 'confirmed')
+                                                                badge-success px-2
+                                                            @elseif($appointment->status === 'pending')
+                                                                badge-primary px-2
+                                                            @else
+                                                                badge-danger px-2
+                                                            @endif">
+                                                            {{ $appointment->status }}
+                                                            </span>
+                                                        </p>
+                                                        
                                                     </a>
                                                     <a href="{{ route('patient.detail', $appointment->patient) }}">
-                                                        <p class="mb-0">{{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}</p>
+                                                        <p class="mb-0">
+                                                            {{ $appointment->patient->first_name }} {{ $appointment->patient->last_name }}
+                                                            <small>
+                                                                <i class="fa fa-calendar"></i> {{ $appointment->date->locale('fr')->formatLocalized('%A %e %B %Y') }}
+                                                            </small>
+                                                        </p>
                                                     </a>
-                                                    <p class="mb-0"> <i class="fa fa-calendar"></i> {{ $appointment->date->locale('fr')->formatLocalized('%A %e %B %Y') }}</p>
                                                     <p class="mb-0"><i class="fa fa-commenting-o"></i>
+                                                        <small>
                                                         @if (!empty($appointment->motifs))
                                                             @foreach ($appointment->motifs as $key => $motif)
                                                                 @if ($loop->last)
@@ -20,17 +38,8 @@
                                                                 @endif
                                                              @endforeach
                                                         @endif
+                                                        </small>
                                                     </p>
-                                                    <span class="badge
-                                                        @if($appointment->status === 'confirmed')
-                                                            badge-success px-2
-                                                        @elseif($appointment->status === 'pending')
-                                                            badge-primary px-2
-                                                        @else
-                                                            badge-danger px-2
-                                                        @endif">
-                                                        {{ $appointment->status }}
-                                                    </span>
                                                 </div>
                                                 <!-- <span class="text-muted ">{{ $appointment->date->locale('fr')->formatLocalized('%A %e %B %Y') }}</span> -->
                                                 <p>

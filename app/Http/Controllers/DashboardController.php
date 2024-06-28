@@ -107,12 +107,12 @@ class DashboardController extends Controller
 
                 $filter = $request->input('filter');
 
-                if ($filter === "all") {
-                    $filteredAppointment = Appointment::where('status', '!=', 'cloturer')
-                    ->where('is_deleted', false)->paginate(3,   ['*'], 'appointment_page');
+                // if ($filter === "all") {
+                //     $filteredAppointment = Appointment::where('status', '!=', 'cloturer')
+                //     ->where('is_deleted', false)->paginate(3,   ['*'], 'appointment_page');
 
-                    return view('appointment.partials.appointment', compact('filteredAppointment'))->render();
-                }
+                //     return view('appointment.partials.appointment', compact('filteredAppointment'))->render();
+                // }
 
 
                 if($filter === "today") {

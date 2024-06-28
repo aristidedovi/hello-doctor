@@ -72,20 +72,20 @@
                 </div>
                 <div class="row">
                 <div class="col-xl-6 col-lg-6 col-sm-6 col-xxl-6">
-                        <div class="card">
-                            <div class="card-body">
+                        <div class="card h-100">
+                            <div class="card-body" style="padding: 1.25rem;">
                                 <h4 class="card-title">Les rendez-vous du jour</h4>
                                 <form id="search-form-appointment">
                                     <div class="form-row">
-                                        <div class="form-group col-md-8">
+                                        <div class="form-group col-md-12">
                                             <input type="text" id="search-query-appointment" class="form-control" placeholder="Recherche de patient">
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <!-- <div class="form-group col-md-4">
                                             <select id="filter-appointments" class="form-control">
                                                 <option value="all">All Appointments</option>
                                                 <option value="today" selected>Today's Appointments</option>
                                             </select>
-                                        </div>
+                                        </div> -->
                                     </div>
                                         <!-- <button type="submit" class="btn btn-primary">Search</button> -->
                                     </form>
@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
-                            <div class="card card-widget">
+                            <div class="card card-widget h-100">
                                 <div class="card-body">
                                     <h5 class="card-title">Liste de patient </h5>
                                     <form id="search-form">
