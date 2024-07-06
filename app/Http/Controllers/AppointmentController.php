@@ -7,6 +7,9 @@ use App\Models\Appointment;
 use App\Models\Patient;
 use Carbon\Carbon;
 use Illuminate\Support\MessageBag;
+use App\Notifications\PatientNotification;
+use App\Notifications\PatientSms;
+
 
 class AppointmentController extends Controller
 {
@@ -116,6 +119,10 @@ class AppointmentController extends Controller
 
         // You can also associate the motif directly if you have a relationship set up
         $appointment->motifs()->create($motifData);
+
+        // Send email notification
+        $patient->notify(new PatientSms($appointment));
+
 
         // Redirect to appointment list page
         return redirect()->route('patient.detail', ['patient' => $patient])

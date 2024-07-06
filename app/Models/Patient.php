@@ -5,11 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Notifications\Notifiable;
+
+
 
 
 class Patient extends Model
 {
     use HasFactory;
+    use Notifiable;
+
 
     protected $fillable = [
         'code',
@@ -50,6 +55,19 @@ class Patient extends Model
     public function appointments()
     {
         return $this->hasMany(Appointment::class);
+    }
+
+    // Custom method to route email notifications
+    public function routeNotificationForMail($notification)
+    {
+        return 'dovi.aristide@gmail.com';
+        //return '221778580286';
+        // return $this->email_address; // or whatever field you use for the email
+    }
+
+    public function routeNotificationForWhatsApp()
+    {
+        return '221778580286'; // Assumes the User model has a phone_number attribute
     }
 
     

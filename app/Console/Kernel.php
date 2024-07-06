@@ -4,6 +4,11 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Models\Appointment;
+use App\Jobs\SendTodayAppointmentEmail;
+use Carbon\Carbon;
+
+
 
 class Kernel extends ConsoleKernel
 {
@@ -16,6 +21,15 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->call(function () {
+
+            $appointments = Appointment::whereDate('date', Carbon::today())->get();
+            //dd($appointemnts);
+            foreach ($appointments as $appointment) {
+
+                SendTodayAppointmentEmail::dispatch($appointment);
+            }
+        })->everyMinute();
     }
 
     /**
