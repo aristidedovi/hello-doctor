@@ -17,11 +17,13 @@ class MotifsFactory extends Factory
         $startDate = Carbon::now();
         $endDate = $startDate->copy()->addMonths(3);
 
-        return [
-            'appointment_id' => $this->faker->numberBetween(1, \App\Models\Appointment::count()),
-            'date' => $this->faker->dateTimeBetween($startDate, $endDate),
-            'motif' => $this->faker->word()
-            //
-        ];
+        // return [
+        //     'appointment_id' => $this->faker->numberBetween(1, \App\Models\Appointment::count()),
+        //     'date' => $this->faker->dateTimeBetween($startDate, $endDate),
+        //     'motif' => $this->faker->word()
+        //     //
+        // ];
+
+        return false;
     }
 }

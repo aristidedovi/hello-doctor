@@ -17,12 +17,14 @@ class AppointmentFactory extends Factory
         $startDate = Carbon::now();
         $endDate = $startDate->copy()->addMonths(3);
 
-        return [
-            'patient_id' => $this->faker->numberBetween(1, \App\Models\Patient::count()),
-            'date' => $this->faker->dateTimeBetween($startDate, $endDate),
-            'status' => $this->faker->randomElement(['en cours', 'reprogrammer', 'cloturer']),
-            'is_deleted' => $this->faker->randomElement([false,true]),
-            //
-        ];
+        // return [
+        //     'patient_id' => $this->faker->numberBetween(1, \App\Models\Patient::count()),
+        //     'date' => $this->faker->dateTimeBetween($startDate, $endDate),
+        //     'status' => $this->faker->randomElement(['en cours', 'reprogrammer', 'cloturer']),
+        //     'is_deleted' => $this->faker->randomElement([false,true]),
+        //     //
+        // ];
+
+        return false;
     }
 }

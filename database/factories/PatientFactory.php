@@ -19,18 +19,19 @@ class PatientFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'code' => function () {
-                return $this->generateUniqueCode();
-            },
-            'last_name' =>  $this->faker->firstName,
-            'first_name' => $this->faker->lastName,
-            'age' => $this->faker->numberBetween(18, 80),
-            'genre' => $this->faker->randomElement(['male', 'female']),
-            'phone' => $this->faker->phoneNumber,
-            'address' => $this->faker->address,
-            //
-        ];
+        // return [
+        //     'code' => function () {
+        //         return $this->generateUniqueCode();
+        //     },
+        //     'last_name' =>  $this->faker->firstName,
+        //     'first_name' => $this->faker->lastName,
+        //     'age' => $this->faker->numberBetween(18, 80),
+        //     'genre' => $this->faker->randomElement(['male', 'female']),
+        //     'phone' => $this->faker->phoneNumber,
+        //     'address' => $this->faker->address,
+        //     //
+        // ];
+        return false;
     }
 
     private function generateUniqueCode()
