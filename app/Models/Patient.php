@@ -67,7 +67,8 @@ class Patient extends Model
 
     public function routeNotificationForWhatsApp()
     {
-        return '221778580286'; // Assumes the User model has a phone_number attribute
+        //return '221778580286'; // Assumes the User model has a phone_number attribute
+        return $this->phone;
     }
 
     
