@@ -63,11 +63,11 @@
                                                             </div>
                                                             <div class="form-group col-md-2">
                                                                 <label>Téléphone</label>
-                                                                <input type="text" name="phone" class="form-control" placeholder="77-777-77-77">
+                                                                <input type="text" name="phone" class="form-control" placeholder="221778580286">
                                                             </div>
                                                             <div class="form-group col-md-2">
                                                                 <label>Age</label>
-                                                                <input type="text" name="age" class="form-control" placeholder="77">
+                                                                <input type="text" name="age" class="form-control" placeholder="25">
                                                             </div>
                                                             <div class="form-group col-md-2">
                                                                 <label>Genre</label>
