@@ -59,7 +59,25 @@
                                                     {{ $patient->created_at->format('d-m-Y') }}
                                                 </td>
                                                 <td>
-                                                    <span>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="dropdown show">
+                                                                <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <span style="color: black">...</span>
+                                                                </a>
+
+                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                                    <a class="btn dropdown-item" href="{{ route('patient.detail', $patient) }}" data-toggle="tooltip" data-placement="top" title="Detail">
+                                                                        Détail
+                                                                    </a>
+                                                                    <a class="btn dropdown-item sweet-success-cancel" data-url="{{ route('patient.delete', $patient) }}" data-toggle="tooltip" data-placement="top" title="Supprimer">
+                                                                        <span style="color: red;">Supprimer</span> 
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <span>
                                                         <a href="{{ route('patient.detail', $patient) }}" data-toggle="tooltip" data-placement="top" title="Detail">
                                                             <i class="fa fa-eye color-muted m-r-5 mr-2"></i> 
                                                         </a>
@@ -68,7 +86,7 @@
                                                         <a class="sweet-success-cancel" data-url="{{ route('patient.delete', $patient) }}" data-toggle="tooltip" data-placement="top" title="Supprimer">
                                                             <i class="fa fa-trash-o color-muted m-r-5" style="color: red;"></i> 
                                                         </a>
-                                                    </span>
+                                                    </span> -->
                                                 </td>
                                             </tr>
                                                 
@@ -159,134 +177,6 @@
                                             </tr> --}}
                                         </tbody>
                                     </table>
-                                </div>
-                                <!-- Nav tabs -->
-                                <ul class="nav nav-tabs mb-3" role="tablist">
-                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home8"><span><i class="ti-list"></i></span></a>
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#profile8"><span><i class="ti-calendar"></i></span></a>
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#messages8"><span><i class="ti-email"></i></span></a>
-                                    </li>
-                                </ul>
-                                <!-- Tab panes -->
-                                <div class="tab-content tabcontent-border">
-                                    <div class="tab-pane fade show active" id="home8" role="tabpanel">
-                                        <div class="p-t-1">
-                                            <div class="col-lg-12">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        {{-- <div class="row mb-2">
-                                                            <div class="col-lg-6">
-                                                                <h4 class="card-title">Liste des rendez-vous</h4>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <button type="button" class="btn mb-1 btn-primary pull-right">Nouveau rendez-vous<span class="btn-icon-right"><i class="fa fa-plus"></i></span></button>
-                                                            </div>
-                                                        </div> --}}
-                                                            
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="profile8" role="tabpanel">
-                                        <div class="p-t-15">
-                                            <div class="col-lg-12">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="card-title">
-                                                            <h4>Calendar</h4>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-lg-4 mt-5">
-                                                                <a href="#" data-toggle="modal" data-target="#add-category" class="btn btn-primary btn-block"><i class="ti-plus f-s-12 m-r-5"></i> Create New</a>
-                                                                <div id="external-events" class="m-t-20">
-                                                                    <p>Drag and drop your event or click in the calendar</p>
-                                                                    <div class="external-event bg-primary text-white" data-class="bg-primary"><i class="fa fa-move"></i>New Theme Release</div>
-                                                                    <div class="external-event bg-success text-white" data-class="bg-success"><i class="fa fa-move"></i>My Event</div>
-                                                                    <div class="external-event bg-warning text-white" data-class="bg-warning"><i class="fa fa-move"></i>Meet manager</div>
-                                                                    <div class="external-event bg-dark text-white" data-class="bg-dark"><i class="fa fa-move"></i>Create New theme</div>
-                                                                </div>
-                                                                <!-- checkbox -->
-                                                                <div class="checkbox m-t-40">
-                                                                    <input id="drop-remove" type="checkbox">
-                                                                    <label for="drop-remove">Remove after drop</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-8">
-                                                                <div class="card-box m-b-50">
-                                                                    <div id="calendar"></div>
-                                                                </div>
-                                                            </div>
-                        
-                                                            <!-- end col -->
-                                                            <!-- BEGIN MODAL -->
-                                                            <div class="modal fade none-border" id="event-modal">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h4 class="modal-title"><strong>Add New Event</strong></h4>
-                                                                        </div>
-                                                                        <div class="modal-body"></div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                                                            <button type="button" class="btn btn-success save-event waves-effect waves-light">Create event</button>
-                                                                            <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Modal Add Category -->
-                                                            <div class="modal fade none-border" id="add-category">
-                                                                <div class="modal-dialog">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h4 class="modal-title"><strong>Add a category</strong></h4>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <form>
-                                                                                <div class="row">
-                                                                                    <div class="col-md-6">
-                                                                                        <label class="control-label">Category Name</label>
-                                                                                        <input class="form-control form-white" placeholder="Enter name" type="text" name="category-name">
-                                                                                    </div>
-                                                                                    <div class="col-md-6">
-                                                                                        <label class="control-label">Choose Category Color</label>
-                                                                                        <select class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
-                                                                                            <option value="success">Success</option>
-                                                                                            <option value="danger">Danger</option>
-                                                                                            <option value="info">Info</option>
-                                                                                            <option value="pink">Pink</option>
-                                                                                            <option value="primary">Primary</option>
-                                                                                            <option value="warning">Warning</option>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </form>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                                                            <button type="button" class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- END MODAL -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /# card -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="messages8" role="tabpanel">
-                                        <div class="p-t-15">
-                                            <h4>This is icon title</h4>
-                                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.</p>
-                                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor.</p>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

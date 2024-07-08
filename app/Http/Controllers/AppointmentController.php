@@ -20,7 +20,7 @@ class AppointmentController extends Controller
 
         //setlocale(LC_TIME, 'French');
         // Carbon::setLocale('fr');
-        //setlocale(LC_ALL,'fr.UTF-8');
+        setlocale(LC_ALL,'fr.UTF-8');
         $appointments = Appointment::where('status', '!=', 'cloturer')
         ->where('is_deleted', false)
         ->orderBy('date', 'asc')

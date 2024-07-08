@@ -52,6 +52,10 @@ class PatientSms extends Notification
             'parameters' => [
                 [
                     'type' => 'text',
+                    'text' => $this->appointment->patient->first_name
+                ],
+                [
+                    'type' => 'text',
                     'text' => $this->appointment->patient->last_name
                 ],
                 [

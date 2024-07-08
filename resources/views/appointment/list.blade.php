@@ -100,34 +100,61 @@
                                                 </td>
                                                 <td style="line-height: unset;">
                                                     <div class="row">
-                                                        <div class="col pr-0">
+                                                        <div class="col">
+                                                            <div class="dropdown show">
+                                                                <a class="btn" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <span style="color: black">...</span>
+                                                                </a>
+
+                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                                    <a id="myModal" class="btn dropdown-item open-modal-reprogrammer" style="color: black; width: auto;" 
+                                                                        data-appointment-id="{{ $appointment->id }}"
+                                                                        data-placement="top" title="Reprogrammer"
+                                                                        data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">
+                                                                        Reprogrammer 
+                                                                    </a>
+                                                                    <a id="myModal" class="btn dropdown-item open-modal-cloturer" style="color: black; width: auto;" 
+                                                                        data-appointment-id="{{ $appointment->id }}"
+                                                                        data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap"
+                                                                        @if($appointment->status == 'cloturer') disabled @endif>
+                                                                        Cloturer
+                                                                    </a>
+                                                                    <a class="btn dropdown-item sweet-success-cancel" data-url="{{ route('appointment.delete', $appointment->id) }}" data-toggle="tooltip" 
+                                                                        style="color: red; width: auto;">
+                                                                        Supprimer 
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <!-- <div class="col pr-0">
                                                             <a id="myModal" class="btn dropdown-item open-modal-reprogrammer p-0" style="color: black; width: auto;" 
                                                                 data-appointment-id="{{ $appointment->id }}"
                                                                 data-placement="top" title="Reprogrammer"
                                                                 data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">
                                                                 <i class="fa fa-pencil"></i> 
                                                             </a>
-                                                        </div>
-                                                        <div class="col pr-0">
+                                                        </div> -->
+                                                        <!-- <div class="col pr-0">
                                                         <a id="myModal" class="btn dropdown-item open-modal-cloturer p-0" style="color: black; width: auto;" 
                                                             data-appointment-id="{{ $appointment->id }}"
                                                             data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap"
                                                             @if($appointment->status == 'cloturer') disabled @endif>
                                                             <i class="fa fa-times"></i> </a>
-                                                        </div>
-                                                        <div class="col pr-0">
+                                                        </div> -->
+                                                        <!-- <div class="col pr-0"> -->
                                                             <!-- <form action="{{ route('appointment.delete', $appointment->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                     <button class="btn dropdown-item p-0" style="color: red; width: auto;" type="submit">
                                                                 <i class="fa fa-trash-o"></i></button>
                                                             </form> -->
-                                                            <a class="sweet-success-cancel" data-url="{{ route('appointment.delete', $appointment->id) }}" data-toggle="tooltip" data-placement="top" title="Supprimer">
+                                                            <!-- <a class="sweet-success-cancel" data-url="{{ route('appointment.delete', $appointment->id) }}" data-toggle="tooltip" data-placement="top" title="Supprimer">
                                                             <i class="fa fa-trash-o" style="color: red;"></i> 
                                                             </a>
-                                                        </div>
+                                                        </div> -->
                                                     </div>
-                                                    <span>
+                                                    <!-- <span> -->
                                                         <!-- <a href="{{ route('patient.detail', $appointment->patient) }}">
                                                             <i class="fa fa-eye fa-sm color-muted ml-3 mr-4"></i> 
                                                         </a> -->
