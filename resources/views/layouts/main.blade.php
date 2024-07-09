@@ -198,11 +198,11 @@
                     </li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                            <i class="fa fa-file"></i> <span class="nav-text">Facture</span>
+                            <i class="fa fa-file"></i> <span class="nav-text">Documents</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('invoices.create') }}">Nouveau Facture</a></li>
-                            <li><a href="{{ route('invoices') }}">Liste Facture</a></li>
+                            <li><a href="{{ route('invoices.create') }}">Nouveau Document</a></li>
+                            <li><a href="{{ route('invoices') }}">Liste documents</a></li>
                             <li><a href="{{ route('items.index') }}">Les soins</a></li>
                         </ul>
                     </li>
