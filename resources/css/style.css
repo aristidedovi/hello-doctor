@@ -9875,7 +9875,7 @@ Input Style
 .form-control {
   border-radius: 0;
   box-shadow: none;
-  height: 45px; }
+  height: 30px; }
   .form-control:hover {
     box-shadow: none; }
   .form-control.active, .form-control:focus {
@@ -9894,7 +9894,7 @@ Input Style
   Input Size
 ******************************************/
 .form-control {
-  min-height: 40px; }
+  min-height: 30px; }
 
 .form-control-sm {
   min-height: 36px; }
