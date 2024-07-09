@@ -202,7 +202,8 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="{{ route('invoices.create') }}">Nouveau Document</a></li>
-                            <li><a href="{{ route('invoices') }}">Liste documents</a></li>
+                            <li><a href="{{ route('invoices.by_type', ['type' => 'devis']) }}">Devis</a></li>
+                            <li><a href="{{ route('invoices.by_type', ['type' => 'facture']) }}">Facture</a></li>
                             <li><a href="{{ route('items.index') }}">Les soins</a></li>
                         </ul>
                     </li>

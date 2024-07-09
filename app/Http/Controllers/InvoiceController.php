@@ -24,6 +24,13 @@ class InvoiceController extends Controller
         return view('invoices.index', compact('invoices'));
     }
 
+    public function getInvoicesByType($type)
+    {
+        $invoices = Invoice::where('doc_type', $type)->get();
+
+        return view('invoices.index', compact('invoices'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -50,6 +57,7 @@ class InvoiceController extends Controller
             //'patient_id' => 'required|exists:patients,id',
             'patient_id' => 'required',
             'invoice_date' => 'required|date',
+            'doc_type' => 'required',
             'due_date' => 'required|date',
             'items.*.item_id' => 'required|exists:items,id',
             'items.*.quantity' => 'required|integer|min:1',
@@ -70,6 +78,7 @@ class InvoiceController extends Controller
         $invoice = Invoice::create([
             'patient_id' => $request->patient_id,
             'invoice_date' => $request->invoice_date,
+            'doc_type' => $request->doc_type,
             'due_date' => $request->due_date,
             'total' => $total,
         ]);
@@ -96,8 +105,10 @@ class InvoiceController extends Controller
         //         'price' => $item['price'],
         //     ]);
         // }
+        //route('invoices.by_type', ['type' => 'devis'])
 
-        return redirect()->route('invoices')->with('success', 'Invoice created successfully.');
+        //return redirect()->route('invoices.index')->with('success', 'Invoice created successfully.');
+        return redirect()->route('invoices.by_type', ['type' => $request->doc_type])->with('success', 'Invoice created successfully.');
     }
 
     /**
@@ -211,4 +222,6 @@ class InvoiceController extends Controller
 
         return redirect()->route('invoices')->with('success', 'Invoice deleted successfully.');
     }
+
+
 }

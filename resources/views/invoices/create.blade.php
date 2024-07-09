@@ -20,13 +20,21 @@
 
                     </div>
                     <div class="col-md-6 text-right">
-                        <button type="submit" class="btn btn-success">Enregistrer Facture</button>
+                        <button type="submit" class="btn btn-success">Enregistrer Document</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
+                                <label for="doc_type">Type de documents</label>
+                                <select name="doc_type" id="doc_type" class="form-control" required>
+                                    <option value="">Select type</option>
+                                    <option value="devis">Devis</option>
+                                    <option value="facture">Facture</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
                                 <label for="patient_id">Information du patient</label>
                                 <select name="patient_id" id="patient_id" class="form-control" required>
                                     <option value="">Select patient</option>
@@ -35,6 +43,17 @@
                                     @endforeach
                                 </select>
                             </div>
+                        </div>
+                        <div class="form-row">
+                            <!-- <div class="form-group col-md-4">
+                                <label for="patient_id">Information du patient</label>
+                                <select name="patient_id" id="patient_id" class="form-control" required>
+                                    <option value="">Select patient</option>
+                                    @foreach($patients as $patient)
+                                        <option value="{{ $patient->id }}">{{ $patient->code }} ({{ $patient->first_name }} {{ $patient->last_name }})</option>
+                                    @endforeach
+                                </select>
+                            </div> -->
                             <div class="form-group col-md-4">
                                 <label for="invoice_date">Date de Facturation</label>
                                 <input type="date" name="invoice_date" id="invoice_date" class="form-control" required>

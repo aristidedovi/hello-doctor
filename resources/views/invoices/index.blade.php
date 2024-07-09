@@ -17,7 +17,8 @@
     <table class="table table-striped mt-3">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Type</th>
+                <th>Numéro</th>
                 <th>Customer</th>
                 <th>Invoice Date</th>
                 <th>Due Date</th>
@@ -28,6 +29,7 @@
         <tbody>
             @foreach($invoices as $invoice)
                 <tr>
+                    <td>{{ $invoice->doc_type }}</td>
                     <td>{{ $invoice->id }}</td>
                     <td>{{ $invoice->patient->last_name }} {{ $invoice->patient->first_name }}</td>
                     <td>{{ $invoice->invoice_date }}</td>
