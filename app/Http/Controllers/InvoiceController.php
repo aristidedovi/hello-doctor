@@ -7,6 +7,8 @@ use App\Models\Patient;
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use Carbon\Carbon;
+use App\Models\Item;
+
 
 
 class InvoiceController extends Controller
@@ -30,7 +32,9 @@ class InvoiceController extends Controller
     public function create()
     {
         $patients = Patient::all();
-        return view('invoices.create', compact('patients'));
+        $availableItems = Item::all();
+
+        return view('invoices.create', compact('patients', 'availableItems'));
     }
 
     /**
@@ -41,39 +45,59 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        //dd($request);
+        $validatedData = $request->validate([
             //'patient_id' => 'required|exists:patients,id',
             'patient_id' => 'required',
             'invoice_date' => 'required|date',
             'due_date' => 'required|date',
-            'items.*.description' => 'required',
+            'items.*.item_id' => 'required|exists:items,id',
             'items.*.quantity' => 'required|integer|min:1',
-            'items.*.price' => 'required|numeric|min:0',
         ]);
 
         //dd($request);
+
+          // Calcul du total
+          $total = 0;
+          foreach ($validatedData['items'] as $itemData) {
+              $item = Item::find($itemData['item_id']);
+              $total += $item->price * $itemData['quantity'];
+          }
+          // array_reduce($request->items, function ($carry, $item) {
+         // return $carry + ($item['quantity'] * $item['price']);
+        // }, 0),
 
         $invoice = Invoice::create([
             'patient_id' => $request->patient_id,
             'invoice_date' => $request->invoice_date,
             'due_date' => $request->due_date,
-            'total' => array_reduce($request->items, function ($carry, $item) {
-                return $carry + ($item['quantity'] * $item['price']);
-            }, 0),
+            'total' => $total,
         ]);
 
-        //dd($invoice);
+        
 
-        foreach ($request->items as $item) {
+
+        foreach ($validatedData['items'] as $itemData) {
+            $item = Item::find($itemData['item_id']);
             InvoiceItem::create([
                 'invoice_id' => $invoice->id,
-                'description' => $item['description'],
-                'quantity' => $item['quantity'],
-                'price' => $item['price'],
+                'item_id' => $item->id,
+                'description' => $item->name,
+                'quantity' => $itemData['quantity'],
+                'price' => $item->price,
             ]);
         }
 
-        return redirect()->route('invoices.index')->with('success', 'Invoice created successfully.');
+        // foreach ($request->items as $item) {
+        //     InvoiceItem::create([
+        //         'invoice_id' => $invoice->id,
+        //         'description' => $item['description'],
+        //         'quantity' => $item['quantity'],
+        //         'price' => $item['price'],
+        //     ]);
+        // }
+
+        return redirect()->route('invoices')->with('success', 'Invoice created successfully.');
     }
 
     /**
@@ -108,8 +132,10 @@ class InvoiceController extends Controller
         $invoice->invoice_date = Carbon::parse($invoice->invoice_date);
         $invoice->due_date = Carbon::parse($invoice->due_date);
         $patients = Patient::all();
+        $availableItems = Item::all();
 
-        return view('invoices.edit', compact('invoice', 'patients'));
+
+        return view('invoices.edit', compact('invoice', 'patients', 'availableItems'));
     }
 
     /**
@@ -121,38 +147,55 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $invoice = Invoice::findOrFail($id);
+
+        $validatedData = $request->validate([
             'patient_id' => 'required|exists:patients,id',
             'invoice_date' => 'required|date',
             'due_date' => 'required|date',
-            'items.*.description' => 'required',
+            'items.*.item_id' => 'required|exists:items,id',
             'items.*.quantity' => 'required|integer|min:1',
-            'items.*.price' => 'required|numeric|min:0',
         ]);
 
-        $invoice = Invoice::findOrFail($id);
+        // Calcul du total
+        $total = 0;
+        foreach ($validatedData['items'] as $itemData) {
+            $item = Item::find($itemData['item_id']);
+            $total += $item->price * $itemData['quantity'];
+        }
+
 
         $invoice->update([
             'patient_id' => $request->patient_id,
             'invoice_date' => $request->invoice_date,
             'due_date' => $request->due_date,
-            'total' => array_reduce($request->items, function ($carry, $item) {
-                return $carry + ($item['quantity'] * $item['price']);
-            }, 0),
+            'total' => $total
         ]);
 
         $invoice->items()->delete();
 
-        foreach ($request->items as $item) {
+         // Création des nouveaux éléments de facture
+         foreach ($validatedData['items'] as $itemData) {
+            $item = Item::find($itemData['item_id']);
             InvoiceItem::create([
                 'invoice_id' => $invoice->id,
-                'description' => $item['description'],
-                'quantity' => $item['quantity'],
-                'price' => $item['price'],
+                'item_id' => $item->id,
+                'description' => $item->name,
+                'quantity' => $itemData['quantity'],
+                'price' => $item->price,
             ]);
         }
 
-        return redirect()->route('invoices.index')->with('success', 'Invoice updated successfully.');
+        // foreach ($request->items as $item) {
+        //     InvoiceItem::create([
+        //         'invoice_id' => $invoice->id,
+        //         'description' => $item['description'],
+        //         'quantity' => $item['quantity'],
+        //         'price' => $item['price'],
+        //     ]);
+        // }
+
+        return redirect()->route('invoices')->with('success', 'Invoice updated successfully.');
     }
 
     /**
@@ -166,6 +209,6 @@ class InvoiceController extends Controller
         $invoice = Invoice::findOrFail($id);
         $invoice->delete();
 
-        return redirect()->route('invoices.index')->with('success', 'Invoice deleted successfully.');
+        return redirect()->route('invoices')->with('success', 'Invoice deleted successfully.');
     }
 }

@@ -63,7 +63,7 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('invoices.index') }}" class="btn btn-primary">Back to Invoices</a>
+                    <a href="{{ route('invoices') }}" class="btn btn-primary">Back to Invoices</a>
                     <a href="{{ route('invoices.show', $invoice->id) }}" class="btn btn-success">Download PDF</a>
 
                 </div>

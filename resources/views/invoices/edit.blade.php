@@ -46,7 +46,17 @@
                                 <tbody>
                                     @foreach($invoice->items as $index => $item)
                                     <tr>
-                                        <td><input type="text" name="items[{{ $index }}][description]" class="form-control" value="{{ $item->description }}" required></td>
+                                        <td>
+                                            <select name="items[{{ $index }}][item_id]" class="form-control item-select" required>
+                                                <option value="">Select item</option>
+                                                @foreach($availableItems as $availableItem)
+                                                    <option value="{{ $availableItem->id }}" data-price="{{ $availableItem->price }}" {{ $availableItem->id == $item->item_id ? 'selected' : '' }}>
+                                                        {{ $availableItem->name }} 
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <!-- <input type="text" name="items[{{ $index }}][description]" class="form-control" value="{{ $item->description }}" required> -->
+                                        </td>
                                         <td><input type="number" name="items[{{ $index }}][quantity]" class="form-control" value="{{ $item->quantity }}" required></td>
                                         <td><input type="number" name="items[{{ $index }}][price]" class="form-control" value="{{ $item->price }}" required></td>
                                         <td><button type="button" class="btn btn-danger remove-item">Remove</button></td>
@@ -59,6 +69,8 @@
                         <button type="submit" class="btn btn-success">Update Invoice</button>
                     </form>
                 </div>
+                <!-- <input type="text" name="items[${itemIndex}][description]" class="form-control" required> -->
+
 
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
@@ -69,7 +81,14 @@
                             const newRow = document.createElement('tr');
 
                             newRow.innerHTML = `
-                                <td><input type="text" name="items[${itemIndex}][description]" class="form-control" required></td>
+                                <td>
+                                    <select name="items[${itemIndex}][item_id]" class="form-control item-select" required>
+                                        <option value="">Select item</option>
+                                        @foreach($availableItems as $availableItem)
+                                            <option value="{{ $availableItem->id }}" data-price="{{ $availableItem->price }}">{{ $availableItem->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
                                 <td><input type="number" name="items[${itemIndex}][quantity]" class="form-control" required></td>
                                 <td><input type="number" name="items[${itemIndex}][price]" class="form-control" required></td>
                                 <td><button type="button" class="btn btn-danger remove-item">Remove</button></td>
@@ -79,11 +98,48 @@
                             itemIndex++;
                         });
 
+                        // document.getElementById('items-table').addEventListener('change', function (e) {
+                        //     if (e.target.classList.contains('item-select')) {
+                        //         const selectedOption = e.target.options[e.target.selectedIndex];
+                        //         const priceInput = e.target.closest('tr').querySelector('.price');
+                        //         priceInput.value = selectedOption.getAttribute('data-price');
+                        //         //updateTotal();
+                        //     }
+                        // });
+
+                        document.getElementById('items-table').addEventListener('change', function (e) {
+                            if (e.target.classList.contains('item-select')) {
+                                const selectedOption = e.target.options[e.target.selectedIndex];
+                                const priceInput = e.target.closest('tr').querySelector('input[name$="[price]"]');
+                                priceInput.value = selectedOption.getAttribute('data-price');
+                                updateTotal()
+                            }
+                        });
+
+                        document.getElementById('items-table').addEventListener('input', function (e) {
+                            if (e.target.classList.contains('quantity')) {
+                                updateTotal();
+                            }
+                        });
+
                         document.getElementById('items-table').addEventListener('click', function (e) {
                             if (e.target.classList.contains('remove-item')) {
                                 e.target.closest('tr').remove();
+                                updateTotal();
                             }
                         });
+
+                        function updateTotal() {
+                            let total = 0;
+                            document.querySelectorAll('#items-table tbody tr').forEach(function (row) {
+                                const quantity = row.querySelector('.quantity').value;
+                                const price = row.querySelector('.price').value;
+                                total += quantity * price;
+                            });
+                            document.getElementById('total').value = total.toFixed(2);
+                        }
+
+                        updateTotal();
                     });
                 </script>
             </div>
