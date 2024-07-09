@@ -206,7 +206,7 @@ class InvoiceController extends Controller
         //     ]);
         // }
 
-        return redirect()->route('invoices')->with('success', 'Invoice updated successfully.');
+        return redirect()->route('invoices.by_type', ['type' => $invoice->doc_type])->with('success', 'Invoice updated successfully.');
     }
 
     /**
@@ -220,7 +220,8 @@ class InvoiceController extends Controller
         $invoice = Invoice::findOrFail($id);
         $invoice->delete();
 
-        return redirect()->route('invoices')->with('success', 'Invoice deleted successfully.');
+        //return redirect()->route('invoices')->with('success', 'Invoice deleted successfully.');
+        return redirect()->route('invoices.by_type', ['type' => $invoice->doc_type])->with('success', 'Invoice deleted successfully.');
     }
 
 
