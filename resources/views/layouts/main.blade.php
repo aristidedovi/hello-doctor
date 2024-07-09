@@ -203,6 +203,7 @@
                         <ul aria-expanded="false">
                             <li><a href="{{ route('invoices.create') }}">Nouveau Facture</a></li>
                             <li><a href="{{ route('invoices') }}">Liste Facture</a></li>
+                            <li><a href="{{ route('items.index') }}">Les soins</a></li>
                         </ul>
                     </li>
                     <li>

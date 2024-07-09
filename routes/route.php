@@ -4,6 +4,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -118,6 +119,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('invoices/{id}', [InvoiceController::class, 'destroy'])->name('invoices.destroy');
     Route::get('invoices/{id}/edit', [InvoiceController::class, 'edit'])->name('invoices.edit');
     Route::put('invoices/{id}', [InvoiceController::class, 'update'])->name('invoices.update');
+
+
+    Route::resource('items', ItemController::class);
+
 
 
 
