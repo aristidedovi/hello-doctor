@@ -71,5 +71,10 @@ class Patient extends Model
         //return $this->phone;
     }
 
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
     
 }

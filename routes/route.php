@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -105,10 +106,22 @@ Route::middleware('auth')->group(function () {
     ->name('patient.store');
 
 
-
     // Route pour afficher le calendrier
     Route::get('/calendar', [DashboardController::class, 'calendar'])
     ->name('calendar');
+
+
+    Route::get('invoices', [InvoiceController::class, 'index'])->name('invoices');
+    Route::get('invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
+    Route::get('invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
+    Route::post('invoices', [InvoiceController::class, 'store'])->name('invoices.store');
+    Route::delete('invoices/{id}', [InvoiceController::class, 'destroy'])->name('invoices.destroy');
+    Route::get('invoices/{id}/edit', [InvoiceController::class, 'edit'])->name('invoices.edit');
+    Route::put('invoices/{id}', [InvoiceController::class, 'update'])->name('invoices.update');
+
+
+
+
 
 });
 

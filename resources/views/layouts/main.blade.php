@@ -198,6 +198,15 @@
                     </li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="fa fa-file"></i> <span class="nav-text">Facture</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('invoices.create') }}">Nouveau Facture</a></li>
+                            <li><a href="{{ route('invoices') }}">Liste Facture</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-user menu-icon"></i> <span class="nav-text">Patients</span>
                         </a>
                         <ul aria-expanded="false">
