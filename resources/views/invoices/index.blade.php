@@ -30,7 +30,7 @@
             @foreach($invoices as $invoice)
                 <tr>
                     <td>{{ $invoice->doc_type }}</td>
-                    <td>{{ $invoice->id }}</td>
+                    <td>{{ $invoice->unique_code }}</td>
                     <td>{{ $invoice->patient->last_name }} {{ $invoice->patient->first_name }}</td>
                     <td>{{ $invoice->invoice_date }}</td>
                     <td>{{ $invoice->due_date }}</td>

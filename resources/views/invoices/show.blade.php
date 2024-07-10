@@ -10,7 +10,14 @@
         <div class="col-md-12">
             <div class="content-body">
                 <div class="container">
-                    <h1>Invoice #{{ $invoice->id }}</h1>
+                    <h1>
+                        @if ($invoice->doc_type == 'devis')
+                            Devis #{{ $invoice->unique_code }}
+                        @else
+                            Facture #{{ $invoice->unique_code }}
+                        @endif
+                    </h1>
+                        
                     
                     <div class="card mb-3">
                         <div class="card-header">

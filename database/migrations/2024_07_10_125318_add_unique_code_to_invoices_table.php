@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTypeToInvoicesTable extends Migration
+class AddUniqueCodeToInvoicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddTypeToInvoicesTable extends Migration
     public function up()
     {
         Schema::table('invoices', function (Blueprint $table) {
-            $table->string('doc_type')->nullable()->after('due_date');
+            $table->string('unique_code')->unique()->after('doc_type')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddTypeToInvoicesTable extends Migration
     public function down()
     {
         Schema::table('invoices', function (Blueprint $table) {
-            $table->dropColumn('doc_type');
+            $table->dropColumn('unique_code');
         });
     }
 }
