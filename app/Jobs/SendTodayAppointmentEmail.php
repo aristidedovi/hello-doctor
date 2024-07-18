@@ -9,8 +9,10 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Appointment;
-use App\Notifications\PatientNotification;
-use App\Notifications\PatientSms;
+//use App\Notifications\PatientNotification;
+//use App\Notifications\PatientSms;
+use App\Notifications\WhatsAppNotification;
+
 
 
 
@@ -44,7 +46,9 @@ class SendTodayAppointmentEmail implements ShouldQueue
 
         $patient = $this->appointment->patient;
         //$patient->notify(new PatientNotification($this->appointment));
-        $patient->notify(new PatientSms($this->appointment));
+        //$patient->notify(new PatientSms($this->appointment));
+        $patient->notify(new WhatsAppNotification($this->appointment));
+
         
 
         //$this->notifiable->notify(new PatientSms());

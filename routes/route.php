@@ -93,9 +93,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/patient/create', [PatientController::class, 'create'])
     ->name('patient.create');
 
+    Route::get('/patients/search', [App\Http\Controllers\PatientController::class, 'search'])->name('patients.search');
+
+
     // Route pour afficher le detail d'un patient
     Route::get('/patient/{patient}', [PatientController::class, 'detail'])
     ->name('patient.detail');
+    Route::get('/patient/invoice/{id}', [App\Http\Controllers\PatientController::class, 'show'])
+    ->name('patient.invoice.show');
+
 
     // Route pour supprimer un patient
     Route::get('/patient/delete/{patient}', [PatientController::class, 'delete'])

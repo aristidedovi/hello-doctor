@@ -38,6 +38,10 @@
     <link href="{{ asset('css/style.css')}}" rel="stylesheet">
     <link href="{{ asset('plugins/sweetalert/css/sweetalert.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/css/tom-select.css" rel="stylesheet"/>
+
+
     <style>
         /* Your custom styles here */
         .toast-success {
@@ -379,9 +383,12 @@
     <script src="{{ asset('plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
 
-    
+    <!-- Include jQuery -->
 
     <script src="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/js/tom-select.complete.min.js"></script>
+
 
     @if (session('toast'))
         <script>

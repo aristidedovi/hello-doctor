@@ -35,6 +35,11 @@ return [
         //'from-phone-number-id' => env('WHATSAPP_FROM_PHONE_NUMBER_ID'),
         'token' => env('WHATSAPP_TOKEN'),
     ],
+    
+    'ultramsg' => [
+        'instance_id' => env('ULTRAMSG_INSTANCE_ID'),
+        'token' => env('ULTRAMSG_TOKEN'),
+    ],
 
     'curl' => [
         'ca_cert' => storage_path('cacert.pem'),

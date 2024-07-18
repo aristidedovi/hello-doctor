@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use Illuminate\Support\MessageBag;
 use App\Notifications\PatientNotification;
 use App\Notifications\PatientSms;
+use App\Notifications\WhatsAppNotification;
+
 
 
 class AppointmentController extends Controller
@@ -121,7 +123,9 @@ class AppointmentController extends Controller
         $appointment->motifs()->create($motifData);
 
         // Send email notification
-        // $patient->notify(new PatientSms($appointment));
+        //$patient->notify(new PatientSms($appointment));
+        //dd($patient->notify(new WhatsAppNotification($appointment)));
+
 
 
         // Redirect to appointment list page

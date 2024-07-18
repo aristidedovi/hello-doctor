@@ -381,6 +381,9 @@ h5, .h5 {
 h6, .h6 {
   font-size: 0.875rem; }
 
+.ts-control {
+  padding: 5px 5px;
+}
 .lead {
   font-size: 1.09375rem;
   font-weight: 300; }
