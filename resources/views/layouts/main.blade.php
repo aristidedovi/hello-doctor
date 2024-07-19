@@ -200,15 +200,23 @@
                             <li><a href="{{ route('appointment.archive') }}">Archive RDV</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li class="{{ (request()->is('invoices*') || request()->is('items*'))  ? 'active' : '' }}">
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="fa fa-file"></i> <span class="nav-text">Documents</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ route('invoices.create') }}">Nouveau Document</a></li>
-                            <li><a href="{{ route('invoices.by_type', ['type' => 'devis']) }}">Devis</a></li>
-                            <li><a href="{{ route('invoices.by_type', ['type' => 'facture']) }}">Facture</a></li>
-                            <li><a href="{{ route('items.index') }}">Les soins</a></li>
+                            <li>
+                                <a class="{{ (request()->is('invoices/type/devis*') || request()->is('invoices/create/devis*')) ? 'active' : '' }}"
+                                    href="{{ route('invoices.by_type', ['type' => 'devis']) }}">Devis</a>
+                            </li>
+                            <li>
+                                <a class="{{ (request()->is('invoices/type/facture*') || request()->is('invoices/create/facture*')) ? 'active' : '' }}"
+                                    href="{{ route('invoices.by_type', ['type' => 'facture']) }}">Facture</a>
+                            </li>
+                            <li>
+                                <a class="{{ request()->is('items*')  ? 'active' : '' }}"
+                                    href="{{ route('items.index') }}">Les soins</a>
+                            </li>
                         </ul>
                     </li>
                     <li>

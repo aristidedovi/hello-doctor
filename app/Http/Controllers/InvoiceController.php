@@ -8,6 +8,8 @@ use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use Carbon\Carbon;
 use App\Models\Item;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+
 
 
 
@@ -27,8 +29,9 @@ class InvoiceController extends Controller
     public function getInvoicesByType($type)
     {
         $invoices = Invoice::where('doc_type', $type)->get();
+        $type_invoice = $type;
 
-        return view('invoices.index', compact('invoices'));
+        return view('invoices.index', compact('invoices', 'type_invoice'));
     }
 
     /**
@@ -36,12 +39,13 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($type)
     {
         $patients = Patient::all();
         $availableItems = Item::all();
+        $type_invoice = $type;
 
-        return view('invoices.create', compact('patients', 'availableItems'));
+        return view('invoices.create', compact('patients', 'availableItems', 'type_invoice'));
     }
 
     /**
@@ -117,10 +121,13 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($type, $id)
     {
+        
         //$invoice->load('patient', 'items');
-        $invoice = Invoice::with('patient', 'items')->findOrFail($id);
+        //$invoice = Invoice::with('patient', 'items')->findOrFail($id);
+        $invoice = Invoice::with('patient', 'items')->where('id', $id)->where('doc_type', $type)->firstOrFail();
+
         $invoice->invoice_date = Carbon::parse($invoice->invoice_date);
         $invoice->due_date = Carbon::parse($invoice->due_date);
 
@@ -222,6 +229,28 @@ class InvoiceController extends Controller
 
         //return redirect()->route('invoices')->with('success', 'Invoice deleted successfully.');
         return redirect()->route('invoices.by_type', ['type' => $invoice->doc_type])->with('success', 'Invoice deleted successfully.');
+    }
+
+    public function generatePDF($id)
+    {
+        set_time_limit(300);
+
+        // Récupérer la facture et les informations du patient
+        $invoice = Invoice::find($id);
+        $patientFirstName = $invoice->patient->first_name; // Assurez-vous que la relation 'patient' existe et est correctement configurée
+        $patientLastName = $invoice->patient->last_name; // Assurez-vous que la relation 'patient' existe et est correctement configurée
+        $patientCode = $invoice->patient->code; // Assurez-vous que le code du patient est disponible
+        $invoice_type = $invoice->doc_type;
+        $invoice_code = $invoice->unique_code;
+        #$date = date('Y-m-d'); // Vous pouvez formater la date comme vous le souhaitez
+
+        // Créer le nom du fichier PDF
+        $fileName = $invoice_type . '_' . $patientFirstName . '_' . $patientLastName . '_' . $invoice_code . '.pdf';
+
+
+        $invoice = Invoice::find($id);
+        $pdf = PDF::loadView('invoices.facture', compact('invoice'));
+        return $pdf->download($fileName);
     }
 
 

@@ -13,7 +13,12 @@
 
 <div class="container">
     <h1>Invoices</h1>
-    <a href="{{ route('invoices.create') }}" class="btn btn-primary">Create Invoice</a>
+    @if( $type_invoice == 'devis')
+    <a href="{{ route('invoices.create', ['type' => 'devis']) }}" class="btn btn-primary">Create Devis</a>
+    @else
+    <a href="{{ route('invoices.create', ['type' => 'facture']) }}" class="btn btn-primary">Create Facture</a>
+    @endif
+
     <table class="table table-striped mt-3">
         <thead>
             <tr>
@@ -36,7 +41,7 @@
                     <td>{{ $invoice->due_date }}</td>
                     <td>{{ $invoice->total }}</td>
                     <td>
-                        <a href="{{ route('invoices.show', $invoice->id) }}" class="btn btn-info">View</a>
+                        <a href="{{ route('invoices.show', ['type' => $invoice->doc_type, 'id' => $invoice->id]) }}" class="btn btn-info">View</a>
                         <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-warning">Edit</a>
                         <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" style="display:inline;">
                             @csrf

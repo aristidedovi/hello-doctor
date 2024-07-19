@@ -12,7 +12,7 @@
         <div class="content-body">
 
         <div class="container p-5" style="background-color: #fff;">
-            <h1>## DEVIS</h1>
+            <h1>## {{ $type_invoice}}</h1>
             <form action="{{ route('invoices.store') }}" method="POST">
                 @csrf
                 <div class="row">
@@ -28,9 +28,11 @@
                         <div class="form-group col-md-6">
                             <!-- <label for="doc_type">Type de documents</label> -->
                             <select name="doc_type" id="doc_type" class="form-control" required hidden>
-                                <option value="">Select type</option>
-                                <option value="devis" selected>Devis</option>
-                                <option value="facture">Facture</option>
+                                <!-- <option value="">Select type</option> -->
+                                <option value="devis" {{ $type_invoice == 'devis' ? 'selected' : '' }}>Devis</option>
+                                <option value="facture" {{ $type_invoice == 'facture' ? 'selected' : '' }}>Facture</option>
+                                <!-- <option value="devis" selected>Devis</option> -->
+                                <!-- <option value="facture">Facture</option> -->
                             </select>
                             <p class="mt-2 mb-0">NOM DU CABINET</p>
                             <p class="mb-0">Address</p>
