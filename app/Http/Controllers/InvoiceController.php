@@ -253,5 +253,27 @@ class InvoiceController extends Controller
         return $pdf->download($fileName);
     }
 
+    public function apercuPDF($id) {
+
+        set_time_limit(300);
+
+        // Récupérer la facture et les informations du patient
+        $invoice = Invoice::find($id);
+        $patientFirstName = $invoice->patient->first_name; // Assurez-vous que la relation 'patient' existe et est correctement configurée
+        $patientLastName = $invoice->patient->last_name; // Assurez-vous que la relation 'patient' existe et est correctement configurée
+        $patientCode = $invoice->patient->code; // Assurez-vous que le code du patient est disponible
+        $invoice_type = $invoice->doc_type;
+        $invoice_code = $invoice->unique_code;
+
+        $fileName = $invoice_type . '_' . $patientFirstName . '_' . $patientLastName . '_' . $invoice_code . '.pdf';
+
+
+        $invoice = Invoice::find($id);
+        $pdf = PDF::loadView('invoices.facturepdf', compact('invoice', 'fileName'));
+        return $pdf->stream($fileName, array("Attachment" => false));
+
+        //return view('invoices.facturepdf');
+    }
+
 
 }

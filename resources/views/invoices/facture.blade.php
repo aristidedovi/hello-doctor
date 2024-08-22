@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Facture</title>
@@ -78,4 +78,100 @@
     </div>
 </div
 </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facture</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .invoice {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f4f4f4;
+        }
+
+        .total {
+            text-align: right;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice">
+        <h1>
+            @if ($invoice->doc_type == 'devis')
+                Devis #{{ $invoice->unique_code }}
+            @else
+                Facture #{{ $invoice->unique_code }}
+            @endif
+        </h1>
+        <p>Date : {{ $invoice->invoice_date }}</p>
+        <p>Date : {{ $invoice->due_date }}</p>
+        <p>Client : {{ $invoice->patient->last_name }} {{ $invoice->patient->first_name }}</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Quantité</th>
+                    <th>Prix</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($invoice->items as $item)
+                <tr>
+                    <td>{{ $item->description }}</td>
+                    <td>{{ $item->quantity }}</td>
+                    <td>{{ number_format($item->price, 2, ',', ' ') }} €</td>
+                    <td>{{ number_format($item->quantity * $item->price, 2, ',', ' ') }} €</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        
+        <p class="total">Total : {{ number_format($invoice->total, 2, ',', ' ') }} €</p>
+    </div>
+</body>
 </html>
+

@@ -128,6 +128,7 @@ Route::middleware('auth')->group(function () {
     Route::get('invoices/{id}/edit', [InvoiceController::class, 'edit'])->name('invoices.edit');
     Route::put('invoices/{id}', [InvoiceController::class, 'update'])->name('invoices.update');
     Route::get('/invoice/{id}/pdf', [InvoiceController::class, 'generatePDF'])->name('invoices.pdf');
+    Route::get('/invoice/{id}/apercupdf', [InvoiceController::class, 'apercuPDF'])->name('invoices.apercuPDF');
 
 
 
