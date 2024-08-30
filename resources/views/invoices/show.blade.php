@@ -21,7 +21,7 @@
                             </h1>
                         </div>
                         <div class="col-6">
-                            <a href="{{ route('invoices') }}" class="btn btn-primary">Back to Invoices</a>
+                            <a href="{{ route('invoices.by_type', $invoice->doc_type) }}" class="btn btn-primary">Back to Invoices</a>
                             <a href="{{ route('invoices.pdf', $invoice->id) }}" class="btn btn-success">Download PDF</a>
                             <a href="{{ route('invoices.apercuPDF', $invoice->id) }}" class="btn btn-success">Aperçu PDF</a>
                         </div>

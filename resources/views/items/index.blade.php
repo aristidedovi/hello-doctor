@@ -1,4 +1,7 @@
 @extends('layouts/main')
+@push('styles')
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.css" />
+@endpush
 
 @section('title', 'Rendez-vous')
 
@@ -18,27 +21,27 @@
                             {{ $message }}
                         </div>
                     @endif
-                    <table class="table">
+                    <table id="myTable" class="" style="width: 80%;">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <!-- <th>Description</th> -->
-                                <th>Price</th>
+                                <th style="text-align: left;">Price</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($items as $item)
                                 <tr>
-                                    <td>{{ $item->name }}</td>
+                                    <td class="col-4 text-truncate">{{ $item->name }}</td>
                                     <!-- <td>{{ $item->description }}</td> -->
-                                    <td>${{ $item->price }}</td>
+                                    <td style="text-align: left;" class="col-3 text-start">{{ $item->price }}</td>
                                     <td>
-                                        <a href="{{ route('items.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                                        <a href="{{ route('items.edit', $item->id) }}" class="btn btn-sm"><i class="fa fa-pencil"></i></a>
                                         <form action="{{ route('items.destroy', $item->id) }}" method="POST" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>
@@ -50,4 +53,13 @@
         </div>
     </div>
 </div>
+@push('scripts')
+<script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
+<script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+</script>
+@endpush
+
 @endsection

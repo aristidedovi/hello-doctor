@@ -1,5 +1,9 @@
 @extends('layouts/main')
 
+@push('styles')
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.css" />
+@endpush
+
 @section('title', 'Rendez-vous')
 
 
@@ -19,12 +23,13 @@
     <a href="{{ route('invoices.create', ['type' => 'facture']) }}" class="btn btn-primary">Create Facture</a>
     @endif
 
-    <table class="table table-striped mt-3">
+    <table id="myTable" class="">
         <thead>
             <tr>
                 <th>Type</th>
                 <th>Numéro</th>
                 <th>Customer</th>
+                <th>Code customer</th>
                 <th>Invoice Date</th>
                 <th>Due Date</th>
                 <th>Total</th>
@@ -37,17 +42,18 @@
                     <td>{{ $invoice->doc_type }}</td>
                     <td>{{ $invoice->unique_code }}</td>
                     <td>{{ $invoice->patient->last_name }} {{ $invoice->patient->first_name }}</td>
+                    <td>{{ $invoice->patient->code }}</td>
                     <td>{{ $invoice->invoice_date }}</td>
                     <td>{{ $invoice->due_date }}</td>
                     <td>{{ $invoice->total }}</td>
                     <td>
-                        <a href="{{ route('invoices.show', ['type' => $invoice->doc_type, 'id' => $invoice->id]) }}" class="btn btn-info">View</a>
-                        <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('invoices.show', ['type' => $invoice->doc_type, 'id' => $invoice->id]) }}" class="btn btn-sm"><i class="fa fa-info-circle"></i></a>
+                        <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-sm"><i class="fa fa-pencil"></i></a>
+                        <!-- <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
+                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                        </form> -->
                     </td>
                 </tr>
             @endforeach
@@ -58,4 +64,13 @@
         </div>
     </div>
 </div>
+@push('scripts')
+<script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
+<script>
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
+</script>
+@endpush
+
 @endsection
