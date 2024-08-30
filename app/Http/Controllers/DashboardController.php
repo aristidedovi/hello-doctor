@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\Patient;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -40,6 +41,10 @@ class DashboardController extends Controller
         foreach ($todayAppointmentsPaginate as $appointment) {
             $motifs[] = $appointment->motifs;
         }
+
+        $totalFacture = Invoice::where('doc_type', '=', 'facture')->get();
+        $totalDevis = Invoice::where('doc_type', '=', 'devis')->get();
+        //dd($totalFacture);
         //dd($motifs);
         // Filter appointments for the current month
         // $month = now()->format('m');
@@ -134,7 +139,7 @@ class DashboardController extends Controller
 
         
         //$patients = Patient::all();
-        return view('home', compact('allpatients', 'patientPaginate','allAppointments','todayAppointments', 'currentMonthAppointments', 'todayAppointmentsPaginate'));
+        return view('home', compact('allpatients', 'patientPaginate','allAppointments','todayAppointments', 'currentMonthAppointments', 'todayAppointmentsPaginate', 'totalFacture', 'totalDevis'));
     }
 
 

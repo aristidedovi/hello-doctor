@@ -1,4 +1,11 @@
 @extends('layouts/main')
+@push('styles')
+<style>
+.gradientCustom {
+    background-image: linear-gradient(to right, #000 0%, #000 100%);
+}
+</style>
+@endpush
 
 @section('title', 'Home Page')
 
@@ -71,7 +78,53 @@
                     </div>
                 </div>
                 <div class="row">
-                <div class="col-xl-6 col-lg-6 col-sm-6 col-xxl-6">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card gradientCustom p-2" style="height: 80px;">
+                            <div class="card-body p-2">
+                                <h3 class="card-title text-white mb-0">Facture non régler</h3>
+                                <div class="d-inline-block">
+                                    <h2 class="text-white mb-0">{{ $todayAppointments->count() }}</h2>
+                                </div>
+                                <!-- <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card gradientCustom p-2" style="height: 80px;">
+                            <div class="card-body p-2">
+                                <h3 class="card-title text-white mb-0">Facture régler</h3>
+                                <div class="d-inline-block">
+                                    <h2 class="text-white mb-0">{{ $todayAppointments->count() }}</h2>
+                                </div>
+                                <!-- <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card gradientCustom p-2" style="height: 80px;">
+                            <div class="card-body p-2">
+                                <h3 class="card-title text-white mb-0">Total Devis</h3>
+                                <div class="d-inline-block">
+                                    <h2 class="text-white mb-0">{{ $totalDevis->count() }}</h2>
+                                </div>
+                                <!-- <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card gradientCustom p-2" style="height: 80px;">
+                            <div class="card-body p-2">
+                                <h3 class="card-title text-white mb-0">Total Facture</h3>
+                                <div class="d-inline-block">
+                                    <h2 class="text-white mb-0">{{ $totalFacture->count() }}</h2>
+                                </div>
+                                <!-- <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-lg-6 col-md-6">
                         <div class="card h-100">
                             <div class="card-body" style="padding: 1.25rem;">
                                 <h4 class="card-title">Les rendez-vous du jour</h4>
