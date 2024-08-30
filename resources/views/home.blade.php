@@ -83,7 +83,7 @@
                             <div class="card-body p-2">
                                 <h3 class="card-title text-white mb-0">Facture non régler</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white mb-0">{{ $todayAppointments->count() }}</h2>
+                                    <h2 class="text-white mb-0">{{ $fatureIsNotPaid->count() }}</h2>
                                 </div>
                                 <!-- <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span> -->
                             </div>
@@ -94,7 +94,7 @@
                             <div class="card-body p-2">
                                 <h3 class="card-title text-white mb-0">Facture régler</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white mb-0">{{ $todayAppointments->count() }}</h2>
+                                    <h2 class="text-white mb-0">{{ $fatureIsPaid->count() }}</h2>
                                 </div>
                                 <!-- <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span> -->
                             </div>

@@ -9,7 +9,13 @@ class Invoice extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['patient_id', 'invoice_date', 'due_date', 'total', 'doc_type', 'unique_code'];
+    protected $fillable = ['patient_id', 'invoice_date', 'due_date', 'total', 'doc_type', 'unique_code', 'is_paid', 'paid_date'];
+
+    // Optionally, if you want to cast `is_paid` as a boolean
+    protected $casts = [
+        'is_paid' => 'boolean',
+        'paid_date' => 'date',
+    ];
 
     public static function generateUniqueCode($docType)
     {

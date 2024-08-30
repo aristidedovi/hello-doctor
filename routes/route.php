@@ -124,6 +124,7 @@ Route::middleware('auth')->group(function () {
     Route::get('invoices/type/{type}/show/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
     Route::get('invoices/type/{type}', [InvoiceController::class, 'getInvoicesByType'])->name('invoices.by_type');
     Route::post('invoices', [InvoiceController::class, 'store'])->name('invoices.store');
+    Route::get('invoices/reglement/{type}/{id}', [InvoiceController::class, 'invoiceReglement'])->name('invoices.reglement');
     Route::delete('invoices/{id}', [InvoiceController::class, 'destroy'])->name('invoices.destroy');
     Route::get('invoices/{id}/edit', [InvoiceController::class, 'edit'])->name('invoices.edit');
     Route::put('invoices/{id}', [InvoiceController::class, 'update'])->name('invoices.update');

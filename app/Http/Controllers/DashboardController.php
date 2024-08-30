@@ -44,6 +44,8 @@ class DashboardController extends Controller
 
         $totalFacture = Invoice::where('doc_type', '=', 'facture')->get();
         $totalDevis = Invoice::where('doc_type', '=', 'devis')->get();
+        $fatureIsPaid = Invoice::where('is_paid', true)->get();
+        $fatureIsNotPaid = Invoice::where('is_paid', false)->get();
         //dd($totalFacture);
         //dd($motifs);
         // Filter appointments for the current month
@@ -139,7 +141,7 @@ class DashboardController extends Controller
 
         
         //$patients = Patient::all();
-        return view('home', compact('allpatients', 'patientPaginate','allAppointments','todayAppointments', 'currentMonthAppointments', 'todayAppointmentsPaginate', 'totalFacture', 'totalDevis'));
+        return view('home', compact('allpatients', 'patientPaginate','allAppointments','todayAppointments', 'currentMonthAppointments', 'todayAppointmentsPaginate', 'totalFacture', 'totalDevis', 'fatureIsPaid', 'fatureIsNotPaid'));
     }
 
 

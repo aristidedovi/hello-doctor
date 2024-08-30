@@ -276,4 +276,23 @@ class InvoiceController extends Controller
     }
 
 
+
+    public function invoiceReglement($type='facture',$id) {
+
+        // Get today's date
+        $today = Carbon::today();
+        $invoice = Invoice::where('id', $id)->where('doc_type', $type)->firstOrFail();
+
+        // $invoice->invoice_date = Carbon::parse($invoice->invoice_date);
+        // $invoice->due_date = Carbon::parse($invoice->due_date);
+
+        $invoice->update([
+            'is_paid' => true,
+            'paid_date' => $today,
+        ]);
+
+        return view('invoices.show', compact('invoice'));
+    }
+
+
 }

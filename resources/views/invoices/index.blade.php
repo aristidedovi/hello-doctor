@@ -26,12 +26,12 @@
     <table id="myTable" class="">
         <thead>
             <tr>
-                <th>Type</th>
+                <th>Type / Status</th>
                 <th>Numéro</th>
                 <th>Customer</th>
                 <th>Code customer</th>
                 <th>Invoice Date</th>
-                <th>Due Date</th>
+                <!-- <th>Due Date</th> -->
                 <th>Total</th>
                 <th>Actions</th>
             </tr>
@@ -39,12 +39,19 @@
         <tbody>
             @foreach($invoices as $invoice)
                 <tr>
-                    <td>{{ $invoice->doc_type }}</td>
+                    <td>
+                        {{ $invoice->doc_type }}
+                        @if( $type_invoice == 'facture')
+                            @if($invoice->is_paid) 
+                                <span class="badge bg-danger" style="color: #fff;">Payé</span>
+                            @endif
+                        @endif
+                    </td>
                     <td>{{ $invoice->unique_code }}</td>
                     <td>{{ $invoice->patient->last_name }} {{ $invoice->patient->first_name }}</td>
                     <td>{{ $invoice->patient->code }}</td>
                     <td>{{ $invoice->invoice_date }}</td>
-                    <td>{{ $invoice->due_date }}</td>
+                    <!-- <td>{{ $invoice->due_date }}</td> -->
                     <td>{{ $invoice->total }}</td>
                     <td>
                         <a href="{{ route('invoices.show', ['type' => $invoice->doc_type, 'id' => $invoice->id]) }}" class="btn btn-sm"><i class="fa fa-info-circle"></i></a>
