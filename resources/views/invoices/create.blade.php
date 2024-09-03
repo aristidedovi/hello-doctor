@@ -23,32 +23,8 @@
                         <button type="submit" class="btn btn-success">Enregistrer Document</button>
                     </div>
                 </div>
-                <div class="row"  style="height: 100px;">
+                <div class="row mt-5"  style="height: 100px;">
                     <div class="col-6">
-                        <div class="form-group col-md-6">
-                            <!-- <label for="doc_type">Type de documents</label> -->
-                            <select name="doc_type" id="doc_type" class="form-control" required hidden>
-                                <!-- <option value="">Select type</option> -->
-                                <option value="devis" {{ $type_invoice == 'devis' ? 'selected' : '' }}>Devis</option>
-                                <option value="facture" {{ $type_invoice == 'facture' ? 'selected' : '' }}>Facture</option>
-                                <!-- <option value="devis" selected>Devis</option> -->
-                                <!-- <option value="facture">Facture</option> -->
-                            </select>
-                            <p class="mt-2 mb-0">NOM DU CABINET</p>
-                            <p class="mb-0">Address</p>
-                            <p>numéro de téléphone</p>
-                        </div>
-                        
-                    </div>
-                    <div class="col-6">
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        
-                    </div>
-                    <div class="col-md-6">
                         <div class="row">
                             <div class="col-10">
                                 <label for="patient_id">Information du patient</label>
@@ -66,10 +42,20 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-6">
-                        <div class="form-group row col-md-12">
+                        <div class="form-group row col-12">
+                            <!-- <label for="doc_type">Type de documents</label> -->
+                            <select name="doc_type" id="doc_type" class="form-control" required hidden>
+                                <!-- <option value="">Select type</option> -->
+                                <option value="devis" {{ $type_invoice == 'devis' ? 'selected' : '' }}>Devis</option>
+                                <option value="facture" {{ $type_invoice == 'facture' ? 'selected' : '' }}>Facture</option>
+                                <!-- <option value="devis" selected>Devis</option> -->
+                                <!-- <option value="facture">Facture</option> -->
+                            </select>
+                            <!-- <p class="mt-2 mb-0">NOM DU CABINET</p>
+                            <p class="mb-0">Address</p>
+                            <p>numéro de téléphone</p> -->
+                            <div class="form-group row">
                             <label class="col-4 col-form-label" for="invoice_date">Date de Facturation</label>
                             <div class="col-6">
                                 <input type="date" name="invoice_date" id="invoice_date" class="form-control" required>
@@ -79,6 +65,44 @@
                                 <input type="date" name="due_date" id="due_date" class="form-control" required>
                             </div>
                         </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <!-- <div class="row">
+                            <div class="col-10">
+                                <label for="patient_id">Information du patient</label>
+                                <input id="patient-select"  name="patient_id" required>
+                            </div>
+                        </div>
+                        <div class="row" style="height: 100px;">
+                            <div class="col-6">
+                                <div id="patient-details" style="display: none;">
+                                    <p class="mt-2 mb-0"><span id="patient-last-name"></span> <span id="patient-first-name"></span></p>
+                                    <p class="mb-0"><span id="patient-address"></span></p>
+                                    <p><span id="patient-phone"></span></p>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <!-- <div class="form-group row col-md-12">
+                            <label class="col-4 col-form-label" for="invoice_date">Date de Facturation</label>
+                            <div class="col-6">
+                                <input type="date" name="invoice_date" id="invoice_date" class="form-control" required>
+                            </div>
+                            <label class="col-4 col-form-label" for="due_date">Date d'échéance</label>
+                            <div class="col-6">
+                                <input type="date" name="due_date" id="due_date" class="form-control" required>
+                            </div>
+                        </div> -->
                     </div>
                     
                 </div>

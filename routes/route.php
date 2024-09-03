@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -130,6 +131,14 @@ Route::middleware('auth')->group(function () {
     Route::put('invoices/{id}', [InvoiceController::class, 'update'])->name('invoices.update');
     Route::get('/invoice/{id}/pdf', [InvoiceController::class, 'generatePDF'])->name('invoices.pdf');
     Route::get('/invoice/{id}/apercupdf', [InvoiceController::class, 'apercuPDF'])->name('invoices.apercuPDF');
+
+
+    Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
+    Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+    Route::patch('/tickets/{id}', [TicketController::class, 'updateStatus'])->name('tickets.updateStatus');
+    Route::get('/tickets/{id}/print', [TicketController::class, 'print'])->name('tickets.print');
+
+
 
 
 

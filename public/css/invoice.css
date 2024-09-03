@@ -8,9 +8,9 @@ table td, table th, p{
     font-size: 13px !important;
 }
 img{
-    border: 3px solid #F1F5F9;
+    /*border: 3px solid #F1F5F9;*/
     padding: 6px;
-    background-color: #F1F5F9;
+    /*background-color: #F1F5F9;*/
 }
 .table-no-border{
     width: 100%;
@@ -66,7 +66,29 @@ img{
     padding: 5px 15px;
 }
 .footer-div{
-    background-color: #F1F5F9;
+    /*background-color: #F1F5F9;*/
     margin-top: 100px;
     padding: 3px 10px;
+}
+
+ /* Additional CSS to ensure footer stays at the bottom */
+ body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.content {
+    flex: 1; /* This makes the content take up all available space */
+}
+
+.footer-div {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    /*background-color: #f1f1f1; /* Example background color */
+    padding: 10px;
 }

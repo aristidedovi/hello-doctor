@@ -16,8 +16,8 @@
     <!-- Pignose Calender -->
     {{-- <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet"> --}}
     <!-- Chartist -->
-    {{-- <link rel="stylesheet" href="./plugins/chartist/css/chartist.min.css">
-    <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <link rel="stylesheet" href="{{ asset('plugins/chartist/css/chartist.min.css') }}">
+    {{-- <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
     <!-- Custom Stylesheet --> --}}
     <!-- Custom Stylesheet -->
     <!-- Custom Stylesheet -->
@@ -228,6 +228,15 @@
                             <li><a href="{{ route('patient.index') }}">Liste patient</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="fa fa-ticket"></i> <span class="nav-text">Ticket</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ route('tickets.index') }}">Gestion des tickets</a></li>
+                            <!-- <li><a href="{{ route('patient.index') }}">Liste patient</a></li> -->
+                        </ul>
+                    </li>
                     {{-- <li class="mega-menu mega-menu-sm {{ (request()->is('appointment/*')) ? 'active' : '' }}">
                         <a href="{{ route('appointment.index') }}">
                             <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Rendez vous</span>
@@ -397,6 +406,11 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/js/tom-select.complete.min.js"></script>
 
+     <!-- Chartjs -->
+     <script src="{{ asset('plugins/chart.js/Chart.bundle.min.js') }}"></script>
+    <script src="{{ asset('plugins/chartist/js/chartist.min.js')}}"></script>
+    <script src="{{ asset('plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js')}}"></script>
+
 
     @if (session('toast'))
         <script>
@@ -417,8 +431,7 @@
     
     @stack('scripts')
 
-    <!-- Chartjs -->
-    {{-- <script src="./plugins/chart.js/Chart.bundle.min.js"></script> --}}
+   
     <!-- Circle progress -->
     {{-- <script src="./plugins/circle-progress/circle-progress.min.js"></script> --}}
     <!-- Datamap -->

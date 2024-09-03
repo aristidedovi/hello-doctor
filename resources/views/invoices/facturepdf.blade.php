@@ -11,17 +11,22 @@
 <table class="table-no-border">
     <tr>
         <td class="width-60">
-            <img src="{{ public_path('itsolutionstuff.png') }}" alt="" width="200" />
+            <img src="{{ public_path('images/logo-cabinet-dentaire.png') }}" alt="" width="250" />
+            <!-- <div><strong>De:</strong></div> -->
+            <h2 style="margin-bottom:0px;">CLINIQUE DENTAIRE FIRDAWS</h2>
+            <div>Rufisque Dioutibi Immeuble CBAO</div>
+            <div><strong>Phone:</strong> 77 267 18 86 / 76 270 66 15</div>
+            <div><strong>Email:</strong> cbfirdaws@gmail.com</div>
         </td>
         <td class="width-40">
-            <h2>
+            <h2  style="margin-bottom:0px;">
                 @if ($invoice->doc_type == 'devis')
                     Devis #{{ $invoice->unique_code }}
                 @else
                     Facture #{{ $invoice->unique_code }}
                 @endif
             </h2>
-            <p>Date Facturation : {{ $invoice->invoice_date }}</p>
+            <p  style="margin-top:0px;">Date Facturation : {{ $invoice->invoice_date }}</p>
             <!-- <p>Date : {{ $invoice->due_date }}</p> -->
         </td>
     </tr>
@@ -31,18 +36,14 @@
     <table class="table-no-border">
         <tr>
             <td class="width-50">
-                <div><strong>A:</strong></div>
-                <div>{{ $invoice->patient->last_name }} {{ $invoice->patient->first_name }}</div>
-                <div>{{ $invoice->patient->address }}</div>
-                <div><strong>Phone:</strong>{{ $invoice->patient->phone }}</div>
+                
                 <!-- <div><strong>Email:</strong> mark@gmail.com</div> -->
             </td>
             <td class="width-50">
-                <div><strong>De:</strong></div>
-                <div>Cabinet ....</div>
-                <div>201, Styam Hills, Rajkot - 360001</div>
-                <div><strong>Phone:</strong> 84695585225</div>
-                <div><strong>Email:</strong> hardik@gmail.com</div>
+                <div><strong>A:</strong></div>
+                <h3  style="margin-bottom:0px; margin-top:0px;">{{ $invoice->patient->last_name }} {{ $invoice->patient->first_name }}</h3>
+                <div>{{ $invoice->patient->address }}</div>
+                <div><strong>Phone:</strong>{{ $invoice->patient->phone }}</div>
             </td>
         </tr>
     </table>
@@ -106,7 +107,7 @@
 </div>
   
 <div class="footer-div">
-    <p>Thank you, <br/>@ItSolutionStuff.com</p>
+    <p>Rufisque Dioutibi, en haut de la CBAO - Tél. : 77 267 18 86 - 70 357 61 84 <br/>E-mail : cdfirdaws@gmail.com</p>
 </div>
   
 </body>
