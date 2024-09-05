@@ -21,6 +21,12 @@
                             {{ $message }}
                         </div>
                     @endif
+
+                    @if ($message = Session::get('warning'))
+                        <div class="alert alert-warning">
+                            {{ $message }}
+                        </div>
+                    @endif
                     <table id="myTable" class="" style="width: 80%;">
                         <thead>
                             <tr>

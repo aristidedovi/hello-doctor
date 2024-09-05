@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\InvoiceItem;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 
 
 class ItemController extends Controller
@@ -105,10 +108,30 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        $item = Item::findOrFail($id);
-        $item->delete();
+
+        try {
+            $item = Item::findOrFail($id);
+        
+            // Assure-toi que tu cherches l'InvoiceItem avec une clé correcte
+            $invoice_item = InvoiceItem::where('item_id', $item->id)->firstOrFail();
+        } catch (ModelNotFoundException $e) {
+            // Gérer l'exception si l'élément ou l'élément de facture n'est pas trouvé
+
+            $item->delete();
+
+            return redirect()->route('items.index')
+                ->with('success', 'Item deleted successfully.');
+        }
+
+        //$item = Item::findOrFail($id);
+
+        //$invoice_item = InvoiceItem::where('item_id', $item->id)->firstOrFail();
+
+        //dd($invoice_item);
+
+        //$item->delete();
 
         return redirect()->route('items.index')
-            ->with('success', 'Item deleted successfully.');
+            ->with('warning', 'Element déja utiliser, impossible de suprimer.');
     }
 }
