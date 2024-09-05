@@ -114,7 +114,11 @@
             <tr>
                 <td class="width-70"  colspan="4" style="padding-top: 70px; text-align: right;">
                     <div>
-                        <strong>Le Dentiste: _________________________</strong>
+                        <strong>Le Dentiste: 
+                        @for ($i = 0; $i < 25; $i++)
+                            &nbsp;
+                        @endfor
+                        </strong>
                     </div>
                 </td>
             </tr>

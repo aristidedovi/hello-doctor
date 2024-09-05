@@ -31,6 +31,8 @@ class InvoiceController extends Controller
     public function getInvoicesByType($type)
     {
         $invoices = Invoice::where('doc_type', $type)->get();
+        //dd($invoices);
+
         $type_invoice = $type;
 
         return view('invoices.index', compact('invoices', 'type_invoice'));
@@ -67,6 +69,7 @@ class InvoiceController extends Controller
             'due_date' => 'required|date',
             'items.*.item_id' => 'required|exists:items,id',
             'items.*.quantity' => 'required|integer|min:1',
+            'items.*.price' => 'required|integer|min:1',
         ]);
 
         //dd($request);
@@ -75,7 +78,7 @@ class InvoiceController extends Controller
           $total = 0;
           foreach ($validatedData['items'] as $itemData) {
               $item = Item::find($itemData['item_id']);
-              $total += $item->price * $itemData['quantity'];
+              $total += $itemData['price'] * $itemData['quantity'];
           }
           // array_reduce($request->items, function ($carry, $item) {
          // return $carry + ($item['quantity'] * $item['price']);
@@ -91,7 +94,7 @@ class InvoiceController extends Controller
 
         
 
-
+        //dd($validatedData);
         foreach ($validatedData['items'] as $itemData) {
             $item = Item::find($itemData['item_id']);
             InvoiceItem::create([
@@ -99,7 +102,8 @@ class InvoiceController extends Controller
                 'item_id' => $item->id,
                 'description' => $item->name,
                 'quantity' => $itemData['quantity'],
-                'price' => $item->price,
+                //'price' => $item->price,
+                'price' => $itemData['price'],
             ]);
         }
 
