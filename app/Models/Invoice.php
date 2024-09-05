@@ -9,7 +9,7 @@ class Invoice extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['patient_id', 'invoice_date', 'due_date', 'total', 'doc_type', 'unique_code', 'is_paid', 'paid_date'];
+    protected $fillable = ['patient_id', 'invoice_date', 'due_date', 'total', 'doc_type', 'unique_code', 'is_paid', 'paid_date', 'has_facture', 'devis_id'];
 
     // Optionally, if you want to cast `is_paid` as a boolean
     protected $casts = [

@@ -16,7 +16,7 @@
         <div class="content-body">
 
 <div class="container">
-    <h1>Invoices</h1>
+    <h1>Gestion {{ $type_invoice }}</h1>
     @if( $type_invoice == 'devis')
     <a href="{{ route('invoices.create', ['type' => 'devis']) }}" class="btn btn-primary">Create Devis</a>
     @else
@@ -45,9 +45,15 @@
                             @if($invoice->is_paid) 
                                 <span class="badge bg-danger" style="color: #fff;">Payé</span>
                             @endif
+                        @elseif ( $type_invoice == 'devis')
+                            @if ($invoice->has_facture)
+                            <a href="{{ route('invoices.detail', ['type' => 'facture', 'unique_code' => $invoice->devis_id ]) }}">
+                                <span class="badge bg-warning" style="color: #fff;">Facturé</span>
+                            </a>
+                            @endif
                         @endif
                     </td>
-                    <td>{{ $invoice->unique_code }}</td>
+                    <td>{{ $invoice->unique_code }} </td>
                     <td>{{ $invoice->patient->last_name }} {{ $invoice->patient->first_name }}</td>
                     <td>{{ $invoice->patient->code }}</td>
                     <td>{{ $invoice->invoice_date }}</td>
@@ -56,8 +62,18 @@
                     <td>
                         <a href="{{ route('invoices.show', ['type' => $invoice->doc_type, 'id' => $invoice->id]) }}" class="btn btn-sm"><i class="fa fa-info-circle"></i></a>
                         <!-- <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-sm"><i class="fa fa-pencil"></i></a> -->
-                        @if( $type_invoice == 'facture' || $type_invoice == 'devis'  )
+                        @if( $type_invoice == 'facture' )
                             @if(!$invoice->is_paid) 
+                                <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                </form>
+                            @endif
+                        @endif
+
+                        @if($type_invoice == 'devis'  )
+                            @if(!$invoice->has_facture) 
                                 <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')

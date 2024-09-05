@@ -121,6 +121,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('invoices', [InvoiceController::class, 'index'])->name('invoices');
     Route::get('invoices/create/{type}', [InvoiceController::class, 'create'])->name('invoices.create');
+    Route::get('invoices/createfacture/{devis_id}/{type}', [InvoiceController::class, 'createfacture'])->name('invoices.createfacture');
+    Route::get('invoices/type/{type}/detail/{unique_code}', [InvoiceController::class, 'detailInvoice'])->name('invoices.detail');
     // Route::get('invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
     Route::get('invoices/type/{type}/show/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
     Route::get('invoices/type/{type}', [InvoiceController::class, 'getInvoicesByType'])->name('invoices.by_type');

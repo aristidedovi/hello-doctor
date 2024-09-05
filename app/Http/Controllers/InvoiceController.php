@@ -28,10 +28,41 @@ class InvoiceController extends Controller
         return view('invoices.index', compact('invoices'));
     }
 
+    public function detailInvoice($type, $unique_code) {
+
+        $invoice = Invoice::where('unique_code', $unique_code)->first();
+
+        //dd($invoice);
+
+        $invoice->invoice_date = Carbon::parse($invoice->invoice_date);
+        $invoice->due_date = Carbon::parse($invoice->due_date);
+
+
+        return view('invoices.show', compact('invoice'));
+
+    }
+
     public function getInvoicesByType($type)
     {
         $invoices = Invoice::where('doc_type', $type)->get();
-        //dd($invoices);
+        // $invoices = [];
+        // $factures = Invoice::where('doc_type', 'facture')->get();
+        // $devis = Invoice::where('doc_type', 'devis')->get();
+
+        // // Ajouter un attribut personnalisé à chaque élément de la collection
+        // foreach ($factures as $facture) {
+        //     foreach($devis as $dv) {
+        //         if($facture->has_facture && $dv->has_facture && $facture->devis_id === $dv->unique_code) {
+        //             $facture->id_facture = $dv->id;  // Ex. une valeur que tu veux ajouter
+        //             //Invoice::where('devis_id', $type)->get();    
+        //         }
+        //     }
+        //     $invoices.push($facture);
+        // }
+
+        // //$invoice = $facture;
+
+        // dd($facture);
 
         $type_invoice = $type;
 
@@ -50,6 +81,55 @@ class InvoiceController extends Controller
         $type_invoice = $type;
 
         return view('invoices.create', compact('patients', 'availableItems', 'type_invoice'));
+    }
+
+    public function createfacture($devis_id, $type) {
+        $today = Carbon::today();
+        $old_invoice = Invoice::with('patient', 'items')->where('id', $devis_id)->firstOrFail();
+
+        //dd($invoice->items);
+
+        $invoice = Invoice::create([
+            'patient_id' => $old_invoice->patient_id,
+            'invoice_date' => $today, // Change to today date
+            'doc_type' => $type,
+            'due_date' => $today, // Change to today date
+            'total' => $old_invoice->total,
+            'has_facture' => true,
+            'devis_id' => $old_invoice->unique_code,
+        ]);
+
+        
+
+        //dd($validatedData);
+        foreach ($old_invoice->items as $itemData) {
+            $item = Item::find($itemData['item_id']);
+           //dd($item);
+            InvoiceItem::create([
+                'invoice_id' => $invoice->id,
+                'item_id' => $itemData['item_id'],
+                'description' => $itemData['description'],
+                'quantity' => $itemData['quantity'],
+                'price' => $itemData['price'],
+            ]);
+        }
+
+        // Étape 2: Modifier l'attribut `has_facture`
+        $old_invoice->has_facture = true; // ou false, selon ce que tu veux mettre
+        $new_invoice = Invoice::findOrFail($invoice->id);
+
+        $old_invoice->devis_id = $new_invoice->unique_code;
+
+        // Étape 3: Sauvegarder les modifications
+        $old_invoice->save();
+       
+
+        //dd($invoice);
+
+        //return redirect()->route('invoices.show', compact('invoice'));
+        return redirect()->route('invoices.show', ['type' => $invoice->doc_type, 'id' => $invoice->id])->with('success', 'Invoice updated successfully.');
+
+ 
     }
 
     /**
@@ -118,7 +198,8 @@ class InvoiceController extends Controller
         //route('invoices.by_type', ['type' => 'devis'])
 
         //return redirect()->route('invoices.index')->with('success', 'Invoice created successfully.');
-        return redirect()->route('invoices.by_type', ['type' => $request->doc_type])->with('success', 'Invoice created successfully.');
+        return redirect()->route('invoices.show', ['type' => $request->doc_type, 'id' => $invoice->id])->with('success', 'Invoice created successfully.');
+        //return view('invoices.show', compact('invoice'));
     }
 
     /**
@@ -231,6 +312,36 @@ class InvoiceController extends Controller
     public function destroy($id)
     {
         $invoice = Invoice::findOrFail($id);
+        $all_devis = Invoice::where('doc_type', 'devis')->get();
+        //dd($all_devis);
+        
+
+        if($invoice->doc_type == "facture" && $invoice->is_paid) {
+            return redirect()->route('invoices.by_type', 
+            ['type' => $invoice->doc_type])->with('warning', 'Facture PAYE, Impossible de supprimer.');
+        }
+
+        if($invoice->doc_type == "devis" && $invoice->has_facture) {
+            return redirect()->route('invoices.by_type', 
+            ['type' => $invoice->doc_type])->with('warning', 'Devis FACTURE, Impossible de supprimer.');
+        }
+
+        if($invoice->has_facture) {
+            foreach ($all_devis as $devis) {
+                if($invoice->devis_id == $devis->unique_code) {
+                    //dd($invoice);
+                    $update_devis = Invoice::findOrFail($devis->id);
+                    $update_devis->has_facture = false;
+                    $update_devis->devis_id = NULL;
+
+                    $update_devis->save();
+                }
+                //$facture = Invoice::where('doc_type', 'facture')->where('id', $id)->where('devis_id', $invoice->devis_id)->get();
+            }
+            // $devis = Invoice::where('doc_type', 'devis')->where('devis_id', $all_devis->unique_code)->get();
+            //dd($devis);
+        }
+
         $invoice->delete();
 
         //return redirect()->route('invoices')->with('success', 'Invoice deleted successfully.');

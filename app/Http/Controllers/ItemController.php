@@ -116,20 +116,10 @@ class ItemController extends Controller
             $invoice_item = InvoiceItem::where('item_id', $item->id)->firstOrFail();
         } catch (ModelNotFoundException $e) {
             // Gérer l'exception si l'élément ou l'élément de facture n'est pas trouvé
-
             $item->delete();
-
             return redirect()->route('items.index')
                 ->with('success', 'Item deleted successfully.');
         }
-
-        //$item = Item::findOrFail($id);
-
-        //$invoice_item = InvoiceItem::where('item_id', $item->id)->firstOrFail();
-
-        //dd($invoice_item);
-
-        //$item->delete();
 
         return redirect()->route('items.index')
             ->with('warning', 'Element déja utiliser, impossible de suprimer.');
