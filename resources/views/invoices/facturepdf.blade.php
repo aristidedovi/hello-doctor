@@ -80,26 +80,42 @@
         <tfoot>
             <tr>
                 <td class="width-70" colspan="2">
-                    <strong>Total HT:</strong>
+                    <strong>Montant Total:</strong>
                 </td>
                 <td class="width-25">
                     <strong>{{ number_format($invoice->total, 0, ',', ' ') }} </strong>
                 </td>
             </tr>
-            <tr>
+            <!-- <tr>
                 <td class="width-70" colspan="2">
                     <strong>TVA</strong>(18%):
                 </td>
                 <td class="width-25">
                     <strong>{{ number_format($invoice->total*0.18, 0, ',', ' ') }} </strong>
                 </td>
-            </tr>
-            <tr>
+            </tr> -->
+            <!-- <tr>
                 <td class="width-70" colspan="2">
                     <strong>Total TTC:</strong>
                 </td>
                 <td class="width-25">
                     <strong>{{ number_format($invoice->total+$invoice->total*0.18, 0, ',', ' ') }} </strong>
+                </td>
+            </tr> -->
+            <!-- Signature Section -->
+            <tr>
+                <td class="width-70"  colspan="4" style="padding-top: 20px; text-align: left;">
+                    <div>
+                        Arrêter le présent {{$invoice->doc_type}} à la somme de : <strong>{{ $total_en_lettre }} francs CFA.</strong>
+                    </div>
+                </td>
+            </tr>
+            <!-- Signature Section -->
+            <tr>
+                <td class="width-70"  colspan="4" style="padding-top: 70px; text-align: right;">
+                    <div>
+                        <strong>Le Dentiste: _________________________</strong>
+                    </div>
                 </td>
             </tr>
         </tfoot>

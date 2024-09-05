@@ -56,11 +56,15 @@
                     <td>
                         <a href="{{ route('invoices.show', ['type' => $invoice->doc_type, 'id' => $invoice->id]) }}" class="btn btn-sm"><i class="fa fa-info-circle"></i></a>
                         <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-sm"><i class="fa fa-pencil"></i></a>
-                        <!-- <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
-                        </form> -->
+                        @if( $type_invoice == 'facture' || $type_invoice == 'devis'  )
+                            @if(!$invoice->is_paid) 
+                                <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                </form>
+                            @endif
+                        @endif
                     </td>
                 </tr>
             @endforeach

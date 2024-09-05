@@ -16,7 +16,7 @@
     <!-- Pignose Calender -->
     {{-- <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet"> --}}
     <!-- Chartist -->
-    <link rel="stylesheet" href="{{ asset('plugins/chartist/css/chartist.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('plugins/chartist/css/chartist.min.css') }}"> -->
     {{-- <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
     <!-- Custom Stylesheet --> --}}
     <!-- Custom Stylesheet -->
@@ -407,9 +407,9 @@
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/js/tom-select.complete.min.js"></script>
 
      <!-- Chartjs -->
-     <script src="{{ asset('plugins/chart.js/Chart.bundle.min.js') }}"></script>
+     <!-- <script src="{{ asset('plugins/chart.js/Chart.bundle.min.js') }}"></script>
     <script src="{{ asset('plugins/chartist/js/chartist.min.js')}}"></script>
-    <script src="{{ asset('plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js')}}"></script>
+    <script src="{{ asset('plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js')}}"></script> -->
 
 
     @if (session('toast'))

@@ -103,7 +103,9 @@
                     <div class="col-lg-3 col-sm-6">
                         <div class="card gradientCustom p-2" style="height: 80px;">
                             <div class="card-body p-2">
-                                <h3 class="card-title text-white mb-0">Total Devis</h3>
+                                <a href="{{ route('invoices.by_type', ['type' => 'devis']) }}">
+                                    <h3 class="card-title text-white mb-0">Total Devis</h3>
+                                </a>
                                 <div class="d-inline-block">
                                     <h2 class="text-white mb-0">{{ $totalDevis->count() }}</h2>
                                 </div>
@@ -114,7 +116,9 @@
                     <div class="col-lg-3 col-sm-6">
                         <div class="card gradientCustom p-2" style="height: 80px;">
                             <div class="card-body p-2">
-                                <h3 class="card-title text-white mb-0">Total Facture</h3>
+                                <a href="{{ route('invoices.by_type', ['type' => 'facture']) }}">
+                                    <h3 class="card-title text-white mb-0">Total Facture</h3>
+                                </a>
                                 <div class="d-inline-block">
                                     <h2 class="text-white mb-0">{{ $totalFacture->count() }}</h2>
                                 </div>

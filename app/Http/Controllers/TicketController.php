@@ -16,6 +16,36 @@ class TicketController extends Controller
     {
         $tickets = Ticket::where('status', '!=', 'completed')->get();
 
+        // Example data (replace with your actual data retrieval logic)
+        // $newTickets = [
+        //     ['2024-09-01', 4],
+        //     ['2024-09-02', 1],
+        //     ['2024-09-03', 3],
+        //     ['2024-09-04', 5],
+        //     ['2024-09-05', 2],
+        //     ['2024-09-06', 8],
+        //     ['2024-09-07', 10]
+        // ];
+
+        $newTickets = [];
+
+        // Iterate over each ticket to format data
+        foreach ($tickets as $ticket) {
+            // Extract necessary fields for charting
+            $date = Carbon::parse($ticket->appointment_time)->format('Y-m-d');
+
+            if (!isset($newTickets[$date])) {
+                $newTickets[$date] = 0;
+            }
+            $newTickets[$date]++;
+        }
+
+        // Convert associative arrays to a format suitable for Flot
+        $formattedNewTickets = [];
+        foreach ($newTickets as $date => $count) {
+            $formattedNewTickets[] = [$date, $count];
+        }
+
         // Obtenir la date et l'heure actuelles avec les heures, minutes et secondes
         $now = Carbon::now();
 
@@ -53,7 +83,8 @@ class TicketController extends Controller
             'completedTicketsCount' => $completedTicketsCount,
             'waitingTicketsCount' => $waitingTicketsCount,
             'labels' => json_encode($labels),
-            'data' => json_encode($data)
+            'data' => json_encode($data),
+            'newTickets' => $formattedNewTickets,
         ]);
     }
 

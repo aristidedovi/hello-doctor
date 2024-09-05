@@ -55,16 +55,14 @@
                     </ul>
 
                     <div class="row">
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Simple line chart</h4>
-                                <div class="chart-wrapper">
-                                        <canvas id="chart_widget_2"></canvas>
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Line Chart</h4>
+                                    <div id="flotLine3" class="flot-chart"></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </div>
 
                     
@@ -74,4 +72,34 @@
         </div>  
     </div>
 </div>
+@push('scripts')
+
+    <script>
+         // Embed PHP variables as JSON-encoded JavaScript variables
+        var newTickets = @json($newTickets);
+        // var newTickets = {!! json_encode($newTickets) !!};
+        
+        // Convert date strings to timestamps
+        newTickets = newTickets.map(function(ticket) {
+            return [new Date(ticket[0]) ,ticket[1], ticket[0]];
+        });
+
+        //console.log(newTickets);
+
+        
+
+        // retTickets = retTickets.map(function(ticket) {
+        //     return [new Date(ticket[0]).getTime(), ticket[1]];
+        // });
+    </script>
+    <!--  flot-chart js -->
+    <script src="{{ asset('plugins/flot/js/jquery.flot.min.js') }}"></script>
+    <script src="{{ asset('plugins/flot/js/jquery.flot.pie.js') }}"></script>
+    <script src="{{ asset('plugins/flot/js/jquery.flot.resize.js') }}"></script>
+    <script src="{{ asset('plugins/flot/js/jquery.flot.spline.js') }}"></script>
+    <script src="{{ asset('plugins/flot/js/jquery.flot.init.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flot@0.8.3/jquery.flot.time.min.js"></script>
+    <!-- <script src="{{ asset('plugins/fullcalendar/js/fullcalendar.min.js') }}"></script> -->
+
+@endpush()
 @endsection

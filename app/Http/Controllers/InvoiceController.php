@@ -9,6 +9,8 @@ use App\Models\InvoiceItem;
 use Carbon\Carbon;
 use App\Models\Item;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use NumberFormatter;
+
 
 
 
@@ -253,6 +255,11 @@ class InvoiceController extends Controller
         return $pdf->download($fileName);
     }
 
+    public function chiffreEnLettre($nombre) {
+        $formatter = new NumberFormatter('fr_FR', NumberFormatter::SPELLOUT);
+        return $formatter->format($nombre);
+    }
+
     public function apercuPDF($id) {
 
         set_time_limit(300);
@@ -267,9 +274,11 @@ class InvoiceController extends Controller
 
         $fileName = $invoice_type . '_' . $patientFirstName . '_' . $patientLastName . '_' . $invoice_code . '.pdf';
 
+        $total_en_lettre = $this->chiffreEnLettre($invoice->total);
+        //dd($total_en_lettre);
 
         $invoice = Invoice::find($id);
-        $pdf = PDF::loadView('invoices.facturepdf', compact('invoice', 'fileName'));
+        $pdf = PDF::loadView('invoices.facturepdf', compact('invoice', 'fileName', 'total_en_lettre'));
         return $pdf->stream($fileName, array("Attachment" => false));
 
         //return view('invoices.facturepdf');

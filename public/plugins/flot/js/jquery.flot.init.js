@@ -93,35 +93,38 @@ $(function() {
         }
     });
 
-    var newCust = [
-        [4, 1],
-        [5, 3],
-        [6, 6],
-        [7, 5],
-        [8, 7],
-        [9, 8],
-        [10, 10]
-    ];
-    var retCust = [
-        [4, 1],
-        [5, 2],
-        [6, 5],
-        [7, 3],
-        [8, 5],
-        [9, 6],
-        [10, 9]
-    ];
+
+    // Example data: Replace with your actual ticket creation data
+    // var newTickets = [
+    //     [new Date('2024-09-01').getTime(), 4],
+    //     [new Date('2024-09-02').getTime(), 1],
+    //     [new Date('2024-09-03').getTime(), 3],
+    //     [new Date('2024-09-04').getTime(), 5],
+    //     [new Date('2024-09-05').getTime(), 2],
+    //     [new Date('2024-09-06').getTime(), 8],
+    //     [new Date('2024-09-07').getTime(), 10]
+    // ];
+
+    // var retTickets = [
+    //     [new Date('2024-09-01').getTime(), 2],
+    //     [new Date('2024-09-02').getTime(), 1],
+    //     [new Date('2024-09-03').getTime(), 4],
+    //     [new Date('2024-09-04').getTime(), 3],
+    //     [new Date('2024-09-05').getTime(), 6],
+    //     [new Date('2024-09-06').getTime(), 5],
+    //     [new Date('2024-09-07').getTime(), 7]
+    // ];
 
     var plot = $.plot($('#flotLine1'), [{
-            data: newCust,
-            label: 'New Customer',
+            data: newTickets,
+            label: 'New Tickets',
             color: '#ff5e5e'
         },
-        {
-            data: retCust,
-            label: 'Returning Customer',
-            color: '#7571F9'
-        }
+        // {
+        //     data: retTickets,
+        //     label: 'Returning Tickets',
+        //     color: '#7571F9'
+        // }
     ], {
         series: {
             lines: {
@@ -131,7 +134,8 @@ $(function() {
             shadowSize: 0
         },
         points: {
-            show: false,
+            show: true,
+            radius: 3
         },
         legend: {
             noColumns: 1,
@@ -155,6 +159,9 @@ $(function() {
             }
         },
         xaxis: {
+            mode: 'time',
+            timeformat: '%Y-%m-%d', // Date format for the x-axis labels
+            minTickSize: [1, "day"], // Minimum tick size to display dates properly
             color: 'transparent',
             font: {
                 size: 10,
@@ -162,6 +169,76 @@ $(function() {
             }
         }
     });
+
+    var newCust = [
+        [4, 1],
+        [5, 3],
+        [6, 6],
+        [7, 5],
+        [8, 7],
+        [9, 8],
+        [10, 10]
+    ];
+    var retCust = [
+        [4, 1],
+        [5, 2],
+        [6, 5],
+        [7, 3],
+        [8, 5],
+        [9, 6],
+        [10, 9]
+    ];
+
+    // var plot = $.plot($('#flotLine1'), [{
+    //         data: newCust,
+    //         label: 'New Customer',
+    //         color: '#ff5e5e'
+    //     },
+    //     {
+    //         data: retCust,
+    //         label: 'Returning Customer',
+    //         color: '#7571F9'
+    //     }
+    // ], {
+    //     series: {
+    //         lines: {
+    //             show: true,
+    //             lineWidth: 1
+    //         },
+    //         shadowSize: 0
+    //     },
+    //     points: {
+    //         show: false,
+    //     },
+    //     legend: {
+    //         noColumns: 1,
+    //         position: 'nw'
+    //     },
+    //     grid: {
+    //         hoverable: true,
+    //         clickable: true,
+    //         borderColor: '#ddd',
+    //         borderWidth: 0,
+    //         labelMargin: 5,
+    //         backgroundColor: 'transparent'
+    //     },
+    //     yaxis: {
+    //         min: 0,
+    //         max: 15,
+    //         color: 'transparent',
+    //         font: {
+    //             size: 10,
+    //             color: '#999'
+    //         }
+    //     },
+    //     xaxis: {
+    //         color: 'transparent',
+    //         font: {
+    //             size: 10,
+    //             color: '#999'
+    //         }
+    //     }
+    // });
 
     var plot = $.plot($('#flotLine2'), [{
             data: newCust,
@@ -239,15 +316,15 @@ $(function() {
     ];
 
     var plot = $.plot($('#flotLine3'), [{
-            data: newCust2,
-            label: 'New Customer',
-            color: '#F37AAD'
-        },
-        {
-            data: retCust2,
-            label: 'Returning Customer',
+            data: newTickets,
+            label: '',
             color: '#6AC3C9'
-        }
+        },
+        // {
+        //     data: retCust2,
+        //     label: 'Returning Customer',
+        //     color: '#F37AAD'
+        // }
     ], {
         series: {
             lines: {
@@ -273,20 +350,39 @@ $(function() {
         },
         yaxis: {
             min: 0,
-            max: 15,
+            max: 10,
             color: 'transparent',
             font: {
                 size: 10,
-                color: '#fff'
+                color: '#999'
             }
         },
         xaxis: {
+            mode: 'time',
+            timeformat: '%Y-%m-%d', // Date format for the x-axis labels
+            minTickSize: [1, "day"], // Minimum tick size to display dates properly
             color: 'transparent',
             font: {
                 size: 10,
-                color: '#fff'
+                color: '#999'
             }
         }
+        // yaxis: {
+        //     min: 0,
+        //     max: 15,
+        //     color: 'transparent',
+        //     font: {
+        //         size: 10,
+        //         color: '#fff'
+        //     }
+        // },
+        // xaxis: {
+        //     color: 'transparent',
+        //     font: {
+        //         size: 10,
+        //         color: '#fff'
+        //     }
+        // }
     });
 
     var plot = $.plot($('#flotLine4'), [{
@@ -458,16 +554,31 @@ $(function() {
     $('#flotLine3, #flotLine4').bind('plothover', function(event, pos, item) {
         $('#x').text(pos.x.toFixed(2));
         $('#y').text(pos.y.toFixed(2));
+        //console.log(item);
 
         if (item) {
+            //console.log(item);
             if (previousPoint != item.dataIndex) {
                 previousPoint = item.dataIndex;
 
                 $('#tooltip').remove();
-                var x = item.datapoint[0].toFixed(2),
+                var x = new Date(Math.floor(item.datapoint[0].toFixed(2))),
                     y = item.datapoint[1].toFixed(2);
 
-                showTooltip(item.pageX, item.pageY, item.series.label + ' of ' + x + ' = ' + y);
+                
+                //var newDate = new Date(Math.floor(x));
+                //console.log(x);
+                //console.log(newDate)
+                
+                // Extract year, month, and day
+                var year = x.getFullYear(); // Get the full year (YYYY)
+                var month = (x.getMonth() + 1).toString().padStart(2, '0'); // Get the month (0-11), add 1, pad with leading zero
+                var day = x.getDate().toString().padStart(2, '0'); // Get the day of the month, pad with leading zero
+
+                // Format the date as YYYY/MM/DD
+                var formattedDate = `${year}/${month}/${day}`;
+
+                showTooltip(item.pageX, item.pageY, item.series.label + ' ' + formattedDate + ' = ' + y);
             }
         } else {
 
