@@ -18,7 +18,7 @@ class UserFactory extends Factory
             'name' => 'admin',
             'email' => "admin@kgtechsn.com",
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '$2a$12$XG1NQVi.YrXIWcp5bDycXeORnVUGsuLyVeooWBQBrBpdU2PM9vBAC', // TJ.....31
             'remember_token' => Str::random(10),
         ];
     }

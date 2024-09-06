@@ -82,9 +82,9 @@
             <div class="brand-logo">
                 <a href="index.html">
                     <b class="logo-abbr"><img src="{{ asset('images/kgtech-icone.png') }}" alt=""> </b>
-                    <span class="logo-compact"><img src="{{ asset('images/kgtech-logo.png') }}" alt=""></span>
+                    <span class="logo-compact"><img src="{{ asset('images/kgtech-logo.png') }}" width="200" alt=""></span>
                     <span class="brand-title">
-                        <img src="{{ asset('images/kgtech-logo.png') }}" alt="">
+                        <img src="{{ asset('images/kgtech-logo.png') }}" width="200" alt="">
                     </span>
                 </a>
             </div>
