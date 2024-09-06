@@ -44,8 +44,8 @@ class DashboardController extends Controller
 
         $totalFacture = Invoice::where('doc_type', '=', 'facture')->get();
         $totalDevis = Invoice::where('doc_type', '=', 'devis')->get();
-        $fatureIsPaid = Invoice::where('is_paid', true)->get();
-        $fatureIsNotPaid = Invoice::where('is_paid', false)->get();
+        $fatureIsPaid = Invoice::where('doc_type', '=', 'facture')->where('is_paid', true)->get();
+        $fatureIsNotPaid = Invoice::where('doc_type', '=', 'facture')->where('is_paid', false)->get();
         //dd($totalFacture);
         //dd($motifs);
         // Filter appointments for the current month
