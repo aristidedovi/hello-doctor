@@ -210,7 +210,7 @@
                                     href="{{ route('invoices.by_type', ['type' => 'devis']) }}">Devis</a>
                             </li>
                             <li>
-                                <a class="{{ (request()->is('invoices/type/facture*') || request()->is('invoices/create/facture*')) ? 'active' : '' }}"
+                                <a class="{{ (request()->is('invoices/type/facture*') || request()->is('invoices/create/facture*') || request()->is('invoices/reglement/facture*')) ? 'active' : '' }}"
                                     href="{{ route('invoices.by_type', ['type' => 'facture']) }}">Facture</a>
                             </li>
                             <li>
