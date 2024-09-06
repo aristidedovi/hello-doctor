@@ -26,7 +26,7 @@
                         <div class="col-6">
                             <!-- <a href="{{ route('invoices.by_type', $invoice->doc_type) }}" class="btn btn-primary">Back to Invoices</a> -->
                             <!-- <a href="{{ route('invoices.pdf', $invoice->id) }}" class="btn btn-success">Download PDF</a> -->
-                            <a href="{{ route('invoices.apercuPDF', $invoice->id) }}" class="btn btn-success">Aperçu PDF</a>
+                            <a href="{{ route('invoices.apercuPDF', $invoice->id) }}" target="_blank" class="btn btn-success">Aperçu PDF</a>
                         
                             @if ($invoice->doc_type == 'facture' && !$invoice->is_paid)
                                 <a href="{{ route('invoices.reglement', [$invoice->doc_type, $invoice->id]) }}" class="btn btn-warning">Réglement Facture</a>
