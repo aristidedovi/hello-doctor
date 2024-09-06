@@ -48,12 +48,11 @@
                                         <strong>Date {{ $invoice->doc_type }} : </strong> {{ \Carbon\Carbon::parse($invoice->invoice_date)->format('d-m-Y') }}
                                         </br>
                                         @if ($invoice->doc_type == 'facture' && $invoice->is_paid)
-                                            <strong>Date paiement : </strong> {{ \Carbon\Carbon::parse($invoice->paid_date)->format('d-m-Y') }}
+                                            <strong>Date paiement : </strong> {{ \Carbon\Carbon::parse($invoice->paid_date)->format('d-m-Y') }}</br>
                                         @elseif($invoice->doc_type == 'devis')
-                                            <strong>Date d'écheance : </strong> {{ \Carbon\Carbon::parse($invoice->due_date)->format('d-m-Y') }}
+                                            <strong>Date d'écheance : </strong> {{ \Carbon\Carbon::parse($invoice->due_date)->format('d-m-Y') }}</br>
                                         @endif
 
-                                        </br>
                                         
                                         @if($invoice->doc_type == 'devis' && $invoice->has_facture)
                                             <strong>Date facturation : </strong> {{ \Carbon\Carbon::parse($invoice->paid_date)->format('d-m-Y') }}</br>
