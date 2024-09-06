@@ -133,6 +133,7 @@ Route::middleware('auth')->group(function () {
     Route::put('invoices/{id}', [InvoiceController::class, 'update'])->name('invoices.update');
     Route::get('/invoice/{id}/pdf', [InvoiceController::class, 'generatePDF'])->name('invoices.pdf');
     Route::get('/invoice/{id}/apercupdf', [InvoiceController::class, 'apercuPDF'])->name('invoices.apercuPDF');
+    Route::get('/invoice/facture/{unique_code}', [InvoiceController::class, 'pdfFactureByUniqueCode'])->name('invoices.pdffacture');
 
 
     Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');

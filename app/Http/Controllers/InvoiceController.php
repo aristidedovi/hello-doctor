@@ -399,7 +399,34 @@ class InvoiceController extends Controller
         $total_en_lettre = $this->chiffreEnLettre($invoice->total);
         //dd($total_en_lettre);
 
-        $invoice = Invoice::find($id);
+        //$invoice = Invoice::find($id);
+        $pdf = PDF::loadView('invoices.facturepdf', compact('invoice', 'fileName', 'total_en_lettre'));
+        return $pdf->stream($fileName, array("Attachment" => false));
+
+        //return view('invoices.facturepdf');
+    }
+
+
+    public function pdfFactureByUniqueCode($unique_code) {
+
+        set_time_limit(300);
+
+        // Récupérer la facture et les informations du patient
+        $invoice = Invoice::where('unique_code', $unique_code)->first();
+
+        //dd($invoice);
+        $patientFirstName = $invoice->patient->first_name; // Assurez-vous que la relation 'patient' existe et est correctement configurée
+        $patientLastName = $invoice->patient->last_name; // Assurez-vous que la relation 'patient' existe et est correctement configurée
+        $patientCode = $invoice->patient->code; // Assurez-vous que le code du patient est disponible
+        $invoice_type = $invoice->doc_type;
+        $invoice_code = $invoice->unique_code;
+
+        $fileName = $invoice_type . '_' . $patientFirstName . '_' . $patientLastName . '_' . $invoice_code . '.pdf';
+
+        $total_en_lettre = $this->chiffreEnLettre($invoice->total);
+        //dd($total_en_lettre);
+
+        //$invoice = Invoice::find($id);
         $pdf = PDF::loadView('invoices.facturepdf', compact('invoice', 'fileName', 'total_en_lettre'));
         return $pdf->stream($fileName, array("Attachment" => false));
 

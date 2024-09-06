@@ -15,6 +15,9 @@
                             <h1>
                                 @if ($invoice->doc_type == 'devis')
                                     Devis #{{ $invoice->unique_code }}
+                                    @if($invoice->has_facture) 
+                                        <span class="badge badge-sm bg-warning" style="color: #fff;">Facturé</span>
+                                    @endif
                                 @else
                                     Facture #{{ $invoice->unique_code }}
                                     @if($invoice->is_paid) 
@@ -48,6 +51,25 @@
                                             <strong>Date paiement : </strong> {{ \Carbon\Carbon::parse($invoice->paid_date)->format('d-m-Y') }}
                                         @elseif($invoice->doc_type == 'devis')
                                             <strong>Date d'écheance : </strong> {{ \Carbon\Carbon::parse($invoice->due_date)->format('d-m-Y') }}
+                                        @endif
+
+                                        </br>
+                                        
+                                        @if($invoice->doc_type == 'devis' && $invoice->has_facture)
+                                            <strong>Date facturation : </strong> {{ \Carbon\Carbon::parse($invoice->paid_date)->format('d-m-Y') }}</br>
+                                            <strong>Code facture : </strong> {{ $invoice->devis_id }}</br>
+                                            <p>
+                                                <a class="btn btn-warning" href="{{ route('invoices.detail', ['type' => 'facture', 'unique_code' => $invoice->devis_id ]) }}">Voir la facture</a>
+                                                <a class="btn btn-warning" href="{{ route('invoices.pdffacture', $invoice->devis_id) }}" target="_blank" >Imprimer la facture</a>
+                                            </p>
+                                            
+                                        @elseif($invoice->doc_type == 'facture' && $invoice->has_facture)
+                                            <strong>Code devis : </strong> {{ $invoice->devis_id }}</br>
+                                            <p>
+                                                <a class="btn btn-warning" href="{{ route('invoices.detail', ['type' => 'devis', 'unique_code' => $invoice->devis_id ]) }}">Voir devis</a>
+                                                <a class="btn btn-warning" href="{{ route('invoices.pdffacture', $invoice->devis_id) }}" target="_blank" >Imprimer devis</a>
+                                            </p>
+                                            
                                         @endif
                                     </p>
                                     <!-- <p><strong>Due Date:</strong> {{ $invoice->due_date }}</p> -->
