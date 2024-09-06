@@ -28,9 +28,9 @@
             <tr>
                 <th>Type / Status</th>
                 <th>Numéro</th>
-                <th>Customer</th>
-                <th>Code customer</th>
-                <th>Invoice Date</th>
+                <th>patient</th>
+                <th>Code patient</th>
+                <th>Date {{  $type_invoice  }}</th>
                 <!-- <th>Due Date</th> -->
                 <th>Total</th>
                 <th>Actions</th>
@@ -56,9 +56,9 @@
                     <td>{{ $invoice->unique_code }} </td>
                     <td>{{ $invoice->patient->last_name }} {{ $invoice->patient->first_name }}</td>
                     <td>{{ $invoice->patient->code }}</td>
-                    <td>{{ $invoice->invoice_date }}</td>
+                    <td>{{ \Carbon\Carbon::parse($invoice->invoice_date)->format('d-m-Y') }}</td>
                     <!-- <td>{{ $invoice->due_date }}</td> -->
-                    <td>{{ $invoice->total }}</td>
+                    <td>{{ number_format($invoice->total, 0, ',', ' ') }}</td>
                     <td>
                         <a href="{{ route('invoices.show', ['type' => $invoice->doc_type, 'id' => $invoice->id]) }}" class="btn btn-sm"><i class="fa fa-info-circle"></i></a>
                         <!-- <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-sm"><i class="fa fa-pencil"></i></a> -->

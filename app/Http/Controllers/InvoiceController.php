@@ -215,8 +215,15 @@ class InvoiceController extends Controller
         //$invoice = Invoice::with('patient', 'items')->findOrFail($id);
         $invoice = Invoice::with('patient', 'items')->where('id', $id)->where('doc_type', $type)->firstOrFail();
 
-        $invoice->invoice_date = Carbon::parse($invoice->invoice_date);
-        $invoice->due_date = Carbon::parse($invoice->due_date);
+        //$invoice->invoice_date = Carbon::parse($invoice->invoice_date);
+        //$invoice->paid_date = Carbon::parse($invoice->paid_date);
+        //$invoice->paid_date->format('d/m/Y');
+        //$invoice->paid_date = Carbon::createFromFormat('d/m/Y H:i:s', $invoice->paid_date);
+
+        //dd($invoice->paid_date);
+        
+
+        //dd($invoice);
 
 
         return view('invoices.show', compact('invoice'));
@@ -404,7 +411,8 @@ class InvoiceController extends Controller
     public function invoiceReglement($type='facture',$id) {
 
         // Get today's date
-        $today = Carbon::today();
+        $today = Carbon::today()->format('Y-m-d');
+        //dd($today);
         $invoice = Invoice::where('id', $id)->where('doc_type', $type)->firstOrFail();
 
         // $invoice->invoice_date = Carbon::parse($invoice->invoice_date);

@@ -26,7 +26,16 @@
                     Facture #{{ $invoice->unique_code }}
                 @endif
             </h2>
-            <p  style="margin-top:0px;">Date Facturation : {{ $invoice->invoice_date }}</p>
+            <p  style="margin-top:5px;">
+                <strong>Date {{ $invoice->doc_type }} : </strong>{{ \Carbon\Carbon::parse($invoice->invoice_date)->format('d-m-Y') }}
+                </br>
+                @if ($invoice->doc_type == 'facture' && $invoice->is_paid)
+                    <strong>Date paiement : </strong> {{ \Carbon\Carbon::parse($invoice->paid_date)->format('d-m-Y') }}
+                @elseif($invoice->doc_type == 'devis')
+                    <strong>Date d'écheance : </strong> {{ \Carbon\Carbon::parse($invoice->due_date)->format('d-m-Y') }}
+                @endif
+            </p>
+            
             <!-- <p>Date : {{ $invoice->due_date }}</p> -->
         </td>
     </tr>

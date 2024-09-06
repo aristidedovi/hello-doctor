@@ -41,21 +41,51 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <h2>Détail {{ $invoice->doc_type }}</h2>
-                                    <p><strong>Invoice Date:</strong> {{ $invoice->invoice_date }}</p>
-                                    <p><strong>Due Date:</strong> {{ $invoice->due_date }}</p>
+                                    <p>
+                                        <strong>Date {{ $invoice->doc_type }} : </strong> {{ \Carbon\Carbon::parse($invoice->invoice_date)->format('d-m-Y') }}
+                                        </br>
+                                        @if ($invoice->doc_type == 'facture' && $invoice->is_paid)
+                                            <strong>Date paiement : </strong> {{ \Carbon\Carbon::parse($invoice->paid_date)->format('d-m-Y') }}
+                                        @elseif($invoice->doc_type == 'devis')
+                                            <strong>Date d'écheance : </strong> {{ \Carbon\Carbon::parse($invoice->due_date)->format('d-m-Y') }}
+                                        @endif
+                                    </p>
+                                    <!-- <p><strong>Due Date:</strong> {{ $invoice->due_date }}</p> -->
+                                     
                                 </div>
                             </div>
                         </div>
                         <div class="col-6">
-                            <div class="card mb-3">
+                            <!-- <div class="card mb-3">
                                 <div class="card-body">
                                     <h2>Détail patient</h2>
-                                    <p><strong>Code:</strong> {{ $invoice->patient->code }}</p>
-                                    <p><strong>Nom complet:</strong> {{ $invoice->patient->last_name }} {{ $invoice->patient->first_name }}</p>
-                                    <p><strong>Adresse:</strong> {{ $invoice->patient->address }}</p>
-                                    <p><strong>Phone:</strong> {{ $invoice->patient->phone }}</p>
+                                    <p>
+                                        <strong>Code Patient : </strong> {{ $invoice->patient->code }} </br>
+                                        <strong>Nom complet : </strong> {{ $invoice->patient->last_name }} {{ $invoice->patient->first_name }}</br>
+                                        <strong>Adresse : </strong> {{ $invoice->patient->address }}</br>
+                                        <strong>Phone : </strong> {{ $invoice->patient->phone }}
+                                    </p>
                                 </div>
+                            </div> -->
+
+                            <div class="card">
+                            <div class="card-body">
+                                <div class="media align-items-center mb-4">
+                                    <img class="mr-3" src="{{asset('images/avatar/patient.png')}}" width="80" height="80" alt="">
+                                    <div class="media-body">
+                                        <h3 class="mb-0">{{ $invoice->patient->last_name }} {{ $invoice->patient->first_name }}</h3>
+                                        <p class="text-muted mb-0">{{ $invoice->patient->code  }}</p>
+                                    </div>
+                                </div>
+                                <h4 style="margin-bottom:0px;">Adresse</h4>
+                                <p class="text-muted">{{ $invoice->patient->address }}</p>
+                                <ul class="card-profile__info">
+                                    <li class="mb-1"><strong class="text-dark mr-4">Phone</strong> <span>{{  $invoice->patient->phone }}</span></li>
+                                    <li class="mb-1"><strong class="text-dark mr-4">Age &nbsp;&nbsp;&nbsp;</strong> <span>{{  $invoice->patient->age }} ans</span></li>
+                                    <li class="mb-1"><strong class="text-dark mr-4">Genre</strong> <span>{{  $invoice->patient->genre }}</span></li>
+                                </ul>
                             </div>
+                        </div> 
                         </div>
                     </div>
 
@@ -68,9 +98,9 @@
                                 <thead>
                                     <tr>
                                         <th>Description</th>
-                                        <th>Quantity</th>
-                                        <th>Price</th>
-                                        <th>Total</th>
+                                        <th>Quantité</th>
+                                        <th>P.U</th>
+                                        <th>P.T</th>
                                     </tr>
                                 </thead>
                                 <tbody>
