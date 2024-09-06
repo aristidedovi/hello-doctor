@@ -71,13 +71,17 @@
                             <div class="card">
                             <div class="card-body">
                                 <div class="media align-items-center mb-4">
-                                    <img class="mr-3" src="{{asset('images/avatar/patient.png')}}" width="80" height="80" alt="">
+                                    @if($invoice->patient->genre == 'Homme')
+                                        <img class="mr-3" src="{{asset('images/avatar/homme.png')}}" width="80" height="80" alt="">
+                                    @elseif($invoice->patient->genre == 'Femme')
+                                        <img class="mr-3" src="{{asset('images/avatar/femme.png')}}" width="80" height="80" alt="">
+                                    @endif
                                     <div class="media-body">
                                         <h3 class="mb-0">{{ $invoice->patient->last_name }} {{ $invoice->patient->first_name }}</h3>
                                         <p class="text-muted mb-0">{{ $invoice->patient->code  }}</p>
                                     </div>
                                 </div>
-                                <h4 style="margin-bottom:0px;">Adresse</h4>
+                                <h4 style="margin-bottom:0px; margin-top:0px;">Adresse</h4>
                                 <p class="text-muted">{{ $invoice->patient->address }}</p>
                                 <ul class="card-profile__info">
                                     <li class="mb-1"><strong class="text-dark mr-4">Phone</strong> <span>{{  $invoice->patient->phone }}</span></li>
