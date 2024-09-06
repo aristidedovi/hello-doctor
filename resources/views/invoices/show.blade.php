@@ -29,7 +29,13 @@
                         <div class="col-6">
                             <!-- <a href="{{ route('invoices.by_type', $invoice->doc_type) }}" class="btn btn-primary">Back to Invoices</a> -->
                             <!-- <a href="{{ route('invoices.pdf', $invoice->id) }}" class="btn btn-success">Download PDF</a> -->
-                            <a href="{{ route('invoices.apercuPDF', $invoice->id) }}" target="_blank" class="btn btn-success">Aperçu PDF</a>
+                            @if($invoice->doc_type == 'devis' && $invoice->has_facture)
+                                <a class="btn btn-warning" href="{{ route('invoices.detail', ['type' => 'facture', 'unique_code' => $invoice->devis_id ]) }}">Voir la facture</a>
+                                <a class="btn btn-warning" href="{{ route('invoices.pdffacture', $invoice->devis_id) }}" target="_blank" >Imprimer la facture</a>           
+                            @elseif($invoice->doc_type == 'facture' && $invoice->has_facture)
+                                <a class="btn btn-warning" href="{{ route('invoices.detail', ['type' => 'devis', 'unique_code' => $invoice->devis_id ]) }}">Voir devis</a>
+                                <a class="btn btn-warning" href="{{ route('invoices.pdffacture', $invoice->devis_id) }}" target="_blank" >Imprimer devis</a>        
+                            @endif
                         
                             @if ($invoice->doc_type == 'facture' && !$invoice->is_paid)
                                 <a href="{{ route('invoices.reglement', [$invoice->doc_type, $invoice->id]) }}" class="btn btn-warning">Réglement Facture</a>
@@ -57,19 +63,14 @@
                                         @if($invoice->doc_type == 'devis' && $invoice->has_facture)
                                             <strong>Date facturation : </strong> {{ \Carbon\Carbon::parse($invoice->paid_date)->format('d-m-Y') }}</br>
                                             <strong>Code facture : </strong> {{ $invoice->devis_id }}</br>
-                                            <p>
-                                                <a class="btn btn-warning" href="{{ route('invoices.detail', ['type' => 'facture', 'unique_code' => $invoice->devis_id ]) }}">Voir la facture</a>
-                                                <a class="btn btn-warning" href="{{ route('invoices.pdffacture', $invoice->devis_id) }}" target="_blank" >Imprimer la facture</a>
-                                            </p>
+                                         
                                             
                                         @elseif($invoice->doc_type == 'facture' && $invoice->has_facture)
-                                            <strong>Code devis : </strong> {{ $invoice->devis_id }}</br>
-                                            <p>
-                                                <a class="btn btn-warning" href="{{ route('invoices.detail', ['type' => 'devis', 'unique_code' => $invoice->devis_id ]) }}">Voir devis</a>
-                                                <a class="btn btn-warning" href="{{ route('invoices.pdffacture', $invoice->devis_id) }}" target="_blank" >Imprimer devis</a>
-                                            </p>
-                                            
+                                            <strong>Code devis : </strong> {{ $invoice->devis_id }}</br>                                            
                                         @endif
+                                        </br>
+                                        <a href="{{ route('invoices.apercuPDF', $invoice->id) }}" target="_blank" class="btn btn-danger">Imprimer {{ $invoice->doc_type }}</a>
+
                                     </p>
                                     <!-- <p><strong>Due Date:</strong> {{ $invoice->due_date }}</p> -->
                                      
