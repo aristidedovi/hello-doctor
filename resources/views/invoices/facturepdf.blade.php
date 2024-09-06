@@ -52,7 +52,7 @@
                 <div><strong>A:</strong></div>
                 <h3  style="margin-bottom:0px; margin-top:0px;">{{ $invoice->patient->last_name }} {{ $invoice->patient->first_name }}</h3>
                 <div>{{ $invoice->patient->address }}</div>
-                <div><strong>Phone:</strong>{{ $invoice->patient->phone }}</div>
+                <div><strong>Phone : </strong>{{ $invoice->patient->phone }}</div>
             </td>
         </tr>
     </table>
@@ -88,11 +88,11 @@
         </tbody>
         <tfoot>
             <tr>
-                <td class="width-70" colspan="2">
+                <td style="padding-top:20px;" class="width-70" colspan="2">
                     <strong>Montant Total:</strong>
                 </td>
-                <td class="width-25">
-                    <strong>{{ number_format($invoice->total, 0, ',', ' ') }} </strong>
+                <td style="padding-top:20px;" class="width-30">
+                    <strong>{{ number_format($invoice->total, 0, ',', ' ') }} FCFA </strong>
                 </td>
             </tr>
             <!-- <tr>
