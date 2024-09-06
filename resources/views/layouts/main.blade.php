@@ -12,7 +12,7 @@
     {{-- <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title> --}}
     <title>@yield('title')</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon-16x16.png') }}">
     <!-- Pignose Calender -->
     {{-- <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet"> --}}
     <!-- Chartist -->
@@ -81,10 +81,10 @@
         <div class="nav-header">
             <div class="brand-logo">
                 <a href="index.html">
-                    <b class="logo-abbr"><img src="{{ asset('images/logo.png') }}" alt=""> </b>
-                    <span class="logo-compact"><img src="{{ asset('images/logo-compact.png') }}" alt=""></span>
+                    <b class="logo-abbr"><img src="{{ asset('images/kgtech-icone.png') }}" alt=""> </b>
+                    <span class="logo-compact"><img src="{{ asset('images/kgtech-logo.png') }}" alt=""></span>
                     <span class="brand-title">
-                        <img src="{{ asset('images/logo-text.png') }}" alt="">
+                        <img src="{{ asset('images/kgtech-logo.png') }}" alt="">
                     </span>
                 </a>
             </div>
@@ -126,7 +126,7 @@
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="{{ asset('images/user/1.png') }}" height="40" width="40" alt="">
+                                <img src="{{ asset('images/user/user.png') }}" height="40" width="40" alt="">
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">
