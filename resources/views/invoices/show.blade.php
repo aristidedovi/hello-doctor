@@ -38,7 +38,7 @@
                             @endif
                         
                             @if ($invoice->doc_type == 'facture' && !$invoice->is_paid)
-                                <a href="{{ route('invoices.reglement', [$invoice->doc_type, $invoice->id]) }}" class="btn btn-warning">Réglement Facture</a>
+                                <a href="{{ route('invoices.reglement', [$invoice->doc_type, $invoice->id]) }}" class="btn btn-success">Réglement Facture</a>
                             @elseif ($invoice->doc_type == 'devis' && !$invoice->has_facture)
                                 <a href="{{ route('invoices.createfacture', [$invoice->id, 'facture']) }}" class="btn btn-primary">Créer facture</a>
                             @endif

@@ -450,7 +450,9 @@ class InvoiceController extends Controller
             'paid_date' => $today,
         ]);
 
-        return view('invoices.show', compact('invoice'));
+        //return view('invoices.show', compact('invoice'));
+        return redirect()->route('invoices.show', ['type' => $type, 'id' => $id]);
+
     }
 
 
