@@ -35,7 +35,7 @@ class InvoiceController extends Controller
         //dd($invoice);
 
         $invoice->invoice_date = Carbon::parse($invoice->invoice_date);
-        $invoice->due_date = Carbon::parse($invoice->due_date);
+        $invoice->due_date = Carbon::parse($invoice->invoice_date);
 
 
         return view('invoices.show', compact('invoice'));
@@ -146,7 +146,7 @@ class InvoiceController extends Controller
             'patient_id' => 'required',
             'invoice_date' => 'required|date',
             'doc_type' => 'required',
-            'due_date' => 'required|date',
+            // 'due_date' => 'required|date',
             'items.*.item_id' => 'required|exists:items,id',
             'items.*.quantity' => 'required|integer|min:1',
             'items.*.price' => 'required|integer|min:1',
@@ -168,7 +168,7 @@ class InvoiceController extends Controller
             'patient_id' => $request->patient_id,
             'invoice_date' => $request->invoice_date,
             'doc_type' => $request->doc_type,
-            'due_date' => $request->due_date,
+            'due_date' => $request->invoice_date,
             'total' => $total,
         ]);
 
@@ -242,7 +242,7 @@ class InvoiceController extends Controller
 
         $invoice = Invoice::with('items')->findOrFail($id);
         $invoice->invoice_date = Carbon::parse($invoice->invoice_date);
-        $invoice->due_date = Carbon::parse($invoice->due_date);
+        $invoice->due_date = Carbon::parse($invoice->invoice_date);
         $patients = Patient::all();
         $availableItems = Item::all();
 
@@ -264,7 +264,7 @@ class InvoiceController extends Controller
         $validatedData = $request->validate([
             'patient_id' => 'required|exists:patients,id',
             'invoice_date' => 'required|date',
-            'due_date' => 'required|date',
+            // 'due_date' => 'nullable|date',
             'items.*.item_id' => 'required|exists:items,id',
             'items.*.quantity' => 'required|integer|min:1',
         ]);
@@ -280,7 +280,7 @@ class InvoiceController extends Controller
         $invoice->update([
             'patient_id' => $request->patient_id,
             'invoice_date' => $request->invoice_date,
-            'due_date' => $request->due_date,
+            'due_date' => $request->invoice_date,
             'total' => $total
         ]);
 

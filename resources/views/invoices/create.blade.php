@@ -56,14 +56,14 @@
                             <p class="mb-0">Address</p>
                             <p>numéro de téléphone</p> -->
                             <div class="form-group row">
-                            <label class="col-4 col-form-label" for="invoice_date">Date de Facturation</label>
+                            <label class="col-6 col-form-label" for="invoice_date">Date de Facturation</label>
                             <div class="col-6">
                                 <input type="date" name="invoice_date" id="invoice_date" class="form-control" required>
                             </div>
-                            <label class="col-4 col-form-label" for="due_date">Date d'échéance</label>
+                            <!-- <label class="col-4 col-form-label" for="due_date">Date d'échéance</label>
                             <div class="col-6">
-                                <input type="date" name="due_date" id="due_date" class="form-control" required>
-                            </div>
+                                <input type="date" name="due_date" id="due_date" class="form-control">
+                            </div> -->
                         </div>
                         </div>
                     </div>

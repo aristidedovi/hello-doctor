@@ -32,7 +32,7 @@
                 @if ($invoice->doc_type == 'facture' && $invoice->is_paid)
                     <strong>Date paiement : </strong> {{ \Carbon\Carbon::parse($invoice->paid_date)->format('d-m-Y') }}
                 @elseif($invoice->doc_type == 'devis')
-                    <strong>Date d'écheance : </strong> {{ \Carbon\Carbon::parse($invoice->due_date)->format('d-m-Y') }}
+                    <!-- <strong>Date d'écheance : </strong> {{ \Carbon\Carbon::parse($invoice->due_date)->format('d-m-Y') }} -->
                 @endif
             </p>
             
