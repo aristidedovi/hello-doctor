@@ -29,7 +29,7 @@ class PatientController extends Controller
         $validatedDate = $request->validate([
             'last_name' => 'required|max:255',
             'first_name' => 'required|max:255',
-            'age' => 'required|numeric|min:0',
+            'age' => 'nullable|numeric|min:0',
             'genre' => 'required|in:Homme,Femme',
             'address' => 'required|max:255',
             'phone' => 'required|max:255',

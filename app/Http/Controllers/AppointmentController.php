@@ -105,7 +105,7 @@ class AppointmentController extends Controller
         $validatedData = $request->validate([
             'patient_id'=>'required',
             'date' => 'required|date',
-            'motif'=>'required',
+            'motif'=>'nullable',
             'status' => 'nullable|in:en cours,reprogrammer,cloturer'
         ]);
 
