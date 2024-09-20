@@ -5,6 +5,38 @@
 
 @section('contentLogin')
 
+    <style>
+        .login-form-bg {
+            background-image: url('{{ asset('images/cabinet-dentaire.jpg') }}');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Overlay effect */
+        .login-form-bg::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
+            z-index: 1; /* Make sure overlay is behind the content */
+        }
+
+        /* Ensures the content is above the overlay */
+        .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand-logo {
+            display: flex;
+            justify-content: center; /* Centrer horizontalement */
+            margin-bottom: 20px; /* Ajouter un espacement en bas */
+        }
+    </style>
+
     <div class="login-form-bg h-100">
         <div class="container h-100">
             <div class="row justify-content-center h-100">
@@ -14,11 +46,11 @@
                             <div class="card-body pt-5">
                                 <div class="brand-logo">
                                     <a class="text-center" href="#">
-                                        <h1>Quixlab</h1>
-                                        <!-- <b class="logo-abbr"><img src="{{ asset('images/logo.png') }}" alt=""> </b>
-                                        <span class="logo-compact"><img src="{{ asset('images/logo-compact.png') }}" alt=""></span>
+                                        <!-- <h1>Quixlab</h1> -->
+                                        <b class="logo-abbr text-center"><img src="{{ asset('images/logo-cabinet-dentaire.png') }}" width="200px" alt=""> </b>
+                                        <!-- <span class="logo-compact"><img src="{{ asset('images/logo-kgtech-sn.png') }}" width="200px" alt=""></span>
                                         <span class="brand-title">
-                                            <img src="{{ asset('images/logo-text.png') }}" alt="">
+                                        <img src="{{ asset('images/logo-kgtech-sn.png') }}" width="200px" alt="">
                                         </span> -->
                                     </a>
                                 </div>
@@ -45,12 +77,12 @@
                                     </div>
 
                                     <!-- Remember Me -->
-                                    <div class="block mt-4">
+                                    <!-- <div class="block mt-4">
                                         <label for="remember_me" class="inline-flex items-center">
                                             <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
                                             <span class="ml-2 text-sm text-gray-600">{{ __('Se Rappeler de moi') }}</span>
                                         </label>
-                                    </div>
+                                    </div> -->
 
                                     <div class="flex items-center justify-end mt-4">
                                         @if (Route::has('password.request'))
